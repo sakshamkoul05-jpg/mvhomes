@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MV Homes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="MV Homes (MV Properties, Regd.) — sale, purchase and rental of builder floors, flats and plots in Malviya Nagar and across South Delhi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: wide-set sans echoing the wordmark, a single gold rule as the brand line, floor plans and a builder-floor elevation in place of stock photos. */
+:root{
+  --navy:#0A2A5E; --navy-deep:#071D42; --ink:#111B2C; --muted:#56637A;
+  --paper:#FFFFFF; --mist:#F0F3F8; --line:#D6DDE8; --gold:#B5862A; --gold-soft:#E7C877;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Hanken Grotesk","Segoe UI",Roboto,Arial,sans-serif;
+  --wrap:1200px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-stretch:112%;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.label{font-family:var(--display);font-stretch:90%;font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.num{font-variant-numeric:tabular-nums}
+
+/* top strip */
+.strip{background:var(--navy-deep);color:#C9D4E6;font-size:.82rem}
+.strip .wrap{display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between;padding-block:8px}
+.strip span b{color:#fff;font-weight:600}
+.strip .open{display:inline-flex;align-items:center;gap:8px}
+.strip .open::before{content:"";width:7px;height:7px;border-radius:50%;background:#4CC38A}
+
+/* header */
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:24px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy)}
+.brand svg{width:38px;height:40px;flex:none}
+.brand .wm{font-family:var(--display);font-stretch:118%;font-weight:700;font-size:1.25rem;letter-spacing:.06em;line-height:1}
+.brand .wm small{display:block;font-size:.58rem;font-weight:500;letter-spacing:.2em;color:var(--muted);margin-top:4px}
+nav.main{margin-left:auto;display:flex;gap:26px}
+nav.main a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink)}
+nav.main a:hover{color:var(--navy);text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-stretch:100%;font-weight:600;font-size:.92rem;letter-spacing:.02em;padding:13px 20px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;text-decoration:none;cursor:pointer;border-radius:2px;transition:background .2s,color .2s}
+.btn:hover{background:var(--navy-deep)}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn.gold:hover{background:#9C7220}
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);padding:9px 12px;font:600 .85rem var(--body);color:var(--navy);border-radius:2px}
+
+/* hero */
+.hero{border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--paper) 0,var(--paper) 70%,var(--mist) 70%)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:end;padding-block:64px 0}
+.hero-copy{padding-bottom:56px;min-width:0}
+.hero h1{font-size:clamp(2.3rem,5.4vw,4.4rem);font-weight:800;color:var(--navy);margin:18px 0 22px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lede{font-size:1.12rem;color:var(--muted);max-width:52ch;margin:0 0 32px}
+.finder{background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 40px -24px rgba(10,42,94,.35);display:grid;grid-template-columns:auto 1fr 1fr auto;align-items:stretch}
+.seg{display:flex;border-right:1px solid var(--line)}
+.seg button{border:0;background:none;padding:0 18px;font:600 .9rem var(--body);color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
+.seg button[aria-pressed="true"]{color:var(--navy);border-bottom-color:var(--gold)}
+.finder label{display:flex;flex-direction:column;padding:12px 18px;border-right:1px solid var(--line);min-width:0}
+.finder label span{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:var(--display);font-weight:600}
+.finder select{border:0;background:none;font:500 1rem var(--body);color:var(--ink);padding:2px 0;appearance:none;cursor:pointer;width:100%}
+.finder .btn{border-radius:0;padding-inline:26px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:26px;font-size:.92rem;color:var(--muted)}
+.hero-facts b{color:var(--ink);font-weight:600}
+.elevation{min-width:0;align-self:end}
+.elevation svg{display:block;width:100%;height:auto;max-width:460px;margin-left:auto}
+
+/* services */
+.services{background:var(--mist)}
+.services .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding-block:56px;gap:0}
+.svc{padding:6px 32px 6px 0;min-width:0}
+.svc + .svc{padding-left:32px;border-left:1px solid var(--line)}
+.svc h3{font-size:1.5rem;color:var(--navy);margin:8px 0 10px;font-weight:700}
+.svc p{margin:0;color:var(--muted);max-width:40ch}
+
+/* section heads */
+section.block{padding-block:96px}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 40px;margin-bottom:40px}
+.head h2{font-size:clamp(1.9rem,3.6vw,3rem);font-weight:750;color:var(--navy);margin-top:12px}
+.head p{margin:0;max-width:46ch;color:var(--muted)}
+.rule{display:inline-block;width:3px;height:1.1em;background:linear-gradient(var(--gold),var(--gold-soft),var(--gold));vertical-align:-.15em;margin-right:12px}
+
+/* listings */
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--paper);padding:10px 16px;font:600 .88rem var(--body);color:var(--muted);cursor:pointer;border-radius:2px}
+.tabs button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:28px}
+.filters select{border:1px solid var(--line);background:var(--paper);padding:10px 12px;font:500 .9rem var(--body);color:var(--ink);border-radius:2px}
+.filters .count{margin-left:auto;color:var(--muted);font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--paper);min-width:0;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--navy);transform:translateY(-2px)}
+.plan{position:relative;background:var(--mist);aspect-ratio:16/10;max-width:100%;border-bottom:1px solid var(--line);overflow:hidden}
+.plan svg{position:absolute;inset:0;width:100%;height:100%}
+.plan img{width:100%;height:100%;object-fit:cover;display:block}
+.tag{position:absolute;top:12px;left:12px;background:var(--navy);color:#fff;font:600 .7rem var(--display);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px}
+.tag.rent{background:var(--gold)}
+.card .body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card .loc{font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+.card h3{font-size:1.18rem;font-weight:700;color:var(--ink);font-stretch:104%}
+.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.specs div{padding:10px 0;min-width:0}
+.specs div + div{padding-left:12px;border-left:1px solid var(--line)}
+.specs dt{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--display);font-weight:600}
+.specs dd{margin:2px 0 0;font-weight:600;font-size:.95rem}
+.card .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
+.price{font-family:var(--display);font-stretch:108%;font-weight:750;font-size:1.35rem;color:var(--navy)}
+.price small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--muted)}
+.card .enq{background:none;border:0;font:600 .88rem var(--body);color:var(--navy);cursor:pointer;padding:6px 0;border-bottom:1.5px solid var(--gold)}
+.empty{grid-column:1/-1;border:1px dashed var(--line);padding:40px;text-align:center;color:var(--muted)}
+
+/* process */
+.process{background:var(--navy);color:#DCE4F1}
+.process .head h2{color:#fff}
+.process .head p,.process .label{color:#A9B8D2}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid rgba(255,255,255,.18)}
+.step{padding:28px 28px 32px 0;border-bottom:1px solid rgba(255,255,255,.18);min-width:0}
+.step:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid rgba(255,255,255,.18)}
+.step .n{font-family:var(--display);font-stretch:120%;font-weight:700;color:var(--gold-soft);font-size:.9rem;letter-spacing:.1em}
+.step h3{color:#fff;font-size:1.25rem;font-weight:700;margin:10px 0 8px}
+.step p{margin:0;font-size:.95rem;color:#B9C6DC}
+
+/* localities + owners */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px}
+.areas{columns:2;column-gap:32px;margin:0;padding:0;list-style:none}
+.areas li{break-inside:avoid;padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-weight:500}
+.areas li span{color:var(--muted);font-size:.85rem;font-weight:400}
+.areas li.home{color:var(--navy);font-weight:700}
+.owners{background:var(--mist);padding:40px;border-left:3px solid var(--gold);min-width:0}
+.owners h3{font-size:1.6rem;color:var(--navy);font-weight:750;margin:10px 0 12px}
+.owners p{color:var(--muted);margin:0 0 20px}
+.docs{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:0}
+.docs li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.docs li::before{content:"";width:12px;height:12px;border:1.5px solid var(--navy);margin-top:6px}
+
+/* contact */
+.contact{background:var(--mist);border-top:1px solid var(--line)}
+.contact .split{align-items:start}
+.cinfo{display:grid;gap:0;border-top:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.crow .v{font-size:1.05rem;font-weight:500;overflow-wrap:anywhere}
+.crow .v a{text-decoration-color:var(--gold);text-underline-offset:4px}
+.copy{margin-left:10px;border:1px solid var(--line);background:var(--paper);font:600 .72rem var(--body);padding:4px 8px;color:var(--navy);cursor:pointer;border-radius:2px;vertical-align:2px}
+form.enquiry{background:var(--paper);border:1px solid var(--line);padding:32px;display:grid;gap:18px;min-width:0}
+form.enquiry h3{font-size:1.4rem;color:var(--navy);font-weight:750}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font:600 .72rem var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{border:1px solid var(--line);background:var(--paper);padding:12px;font:500 1rem var(--body);color:var(--ink);border-radius:2px;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(10,42,94,.12)}
+.field textarea{min-height:96px;resize:vertical}
+.note{font-size:.82rem;color:var(--muted);margin:0}
+.err{color:#B3261E;font-size:.85rem;margin:0}
+
+footer{background:var(--navy-deep);color:#A9B8D2;font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;align-items:center;padding-block:36px}
+footer .brand{color:#fff}
+footer .brand .wm small{color:#8FA0BE}
+footer a{color:#DCE4F1}
+
+/* responsive */
+@media (max-width:1000px){
+  nav.main{display:none}
+  .menu-btn{display:inline-block}
+  header.site .btn{display:none}
+  nav.main.open{display:flex;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px max(20px,env(safe-area-inset-right,0px)) 16px max(20px,env(safe-area-inset-left,0px))}
+  nav.main.open a{padding:12px 0;border-bottom:1px solid var(--line)}
+  .hero .wrap{grid-template-columns:1fr;gap:8px;padding-top:44px}
+  .hero-copy{padding-bottom:20px}
+  .elevation svg{max-width:360px;margin:0 auto}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+  .step:nth-child(2n){padding-left:24px;border-left:1px solid rgba(255,255,255,.18)}
+  .split{grid-template-columns:1fr;gap:48px}
+}
+@media (max-width:720px){
+  .finder{grid-template-columns:1fr 1fr}
+  .seg{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}
+  .seg button{flex:1;padding:14px 0}
+  .finder label:nth-of-type(2){border-right:0}
+  .finder .btn{grid-column:1/-1;padding-block:15px}
+  .services .wrap{grid-template-columns:1fr;gap:28px}
+  .svc,.svc + .svc{padding:0;border-left:0}
+  .svc + .svc{padding-top:28px;border-top:1px solid var(--line)}
+  .grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .step,.step:nth-child(2n){padding:24px 0;border-left:0}
+  section.block{padding-block:72px}
+  .areas{columns:1}
+  .owners{padding:28px 22px}
+  .crow{grid-template-columns:1fr;gap:2px}
+  form.enquiry{padding:24px 18px}
+  .row2{grid-template-columns:1fr}
+  .filters .count{margin-left:0;width:100%}
+  .strip .wrap{justify-content:flex-start}
+  .strip .mail{display:none}
+}
+</style>
+<link rel="icon" href="logo-mark.svg">
+</head>
+<body>
+
+
+<div class="strip">
+  <div class="wrap">
+    <span class="open">Office open daily, <b class="num">9:00 am – 9:00 pm</b></span>
+    <span>Call <b class="num">+91 99113 54620</b> <span class="mail">&nbsp;·&nbsp; mvproperties2000@gmail.com</span></span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="MV Homes home">
+      <svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B5862A"/></svg>
+      <span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span>
+    </a>
+    <nav class="main" id="nav">
+      <a href="#properties">Properties</a>
+      <a href="#process">How we work</a>
+      <a href="#areas">Localities</a>
+      <a href="#owners">List your property</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn" href="tel:+919911354620">Call 99113 54620</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="label"><span class="rule"></span>Malviya Nagar, New Delhi</div>
+      <h1>Builder floors, flats and plots across <em>South Delhi</em>.</h1>
+      <p class="lede">MV Homes helps families buy, sell and rent homes in Malviya Nagar and the colonies around it. We know the lanes, the builders and the paperwork, and we take you from the first site visit to the registry.</p>
+      <form class="finder" id="finder" aria-label="Find a property">
+        <div class="seg" role="group" aria-label="Purpose">
+          <button type="button" data-p="sale" aria-pressed="true">Buy</button>
+          <button type="button" data-p="rent" aria-pressed="false">Rent</button>
+        </div>
+        <label for="fLoc"><span>Locality</span><select id="fLoc"></select></label>
+        <label for="fBhk"><span>Size</span><select id="fBhk"><option value="">Any</option><option value="2">2 BHK</option><option value="3">3 BHK</option><option value="4">4 BHK</option></select></label>
+        <button class="btn" type="submit">Show homes</button>
+      </form>
+      <div class="hero-facts">
+        <span><b>Sale · Purchase · Rent</b></span>
+        <span>Office at <b>F 2/1, F Block, Malviya Nagar</b></span>
+        <span><b class="num">961</b> follow us on Facebook</span>
+      </div>
+    </div>
+    <div class="elevation" aria-hidden="true">
+      <svg viewBox="0 -34 420 540" id="elev"></svg>
+    </div>
+  </div>
+</section>
+
+<section class="services" aria-label="Services">
+  <div class="wrap">
+    <div class="svc"><div class="label">Sale</div><h3>Sell at the right price</h3><p>We value your floor against recent deals in the same block, market it to buyers we already know, and handle negotiation and token.</p></div>
+    <div class="svc"><div class="label">Purchase</div><h3>Buy with clear title</h3><p>Shortlists that match your budget and floor preference, accompanied site visits, and a title-chain check before you pay any token.</p></div>
+    <div class="svc"><div class="label">Rent</div><h3>Let out or lease</h3><p>Verified tenants for owners, and well-kept floors for families. Rent agreement, police verification and handover done properly.</p></div>
+  </div>
+</section>
+
+<section class="block" id="properties">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="label"><span class="rule"></span>Current properties</div>
+        <h2>Homes on our books</h2>
+      </div>
+      <div class="tabs" role="group" aria-label="Purpose">
+        <button type="button" data-p="sale" aria-pressed="true">For sale</button>
+        <button type="button" data-p="rent" aria-pressed="false">For rent</button>
+      </div>
+    </div>
+    <div class="filters">
+      <select id="lLoc" aria-label="Locality"></select>
+      <select id="lBhk" aria-label="Size"><option value="">Any size</option><option value="2">2 BHK</option><option value="3">3 BHK</option><option value="4">4 BHK</option></select>
+      <select id="lFloor" aria-label="Floor"><option value="">Any floor</option><option>Ground</option><option>First</option><option>Second</option><option>Third</option></select>
+      <span class="count num" id="count"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="block process" id="process">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="label"><span class="rule"></span>Buying through MV Homes</div>
+        <h2>From first call to registry</h2>
+      </div>
+      <p>Every purchase goes through the same six steps. You always know what comes next and what it costs.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">STEP 1</div><h3>Requirement</h3><p>Budget, colonies, floor, parking and possession date. One conversation, written down.</p></div>
+      <div class="step"><div class="n">STEP 2</div><h3>Shortlist</h3><p>Only properties that fit. Plot size, floor, facing and age shared before you travel.</p></div>
+      <div class="step"><div class="n">STEP 3</div><h3>Site visits</h3><p>We go with you, on your schedule, and point out what to check: seepage, lift, stilt height.</p></div>
+      <div class="step"><div class="n">STEP 4</div><h3>Title check</h3><p>Chain of sale deeds, MCD property tax and conversion status reviewed before any token.</p></div>
+      <div class="step"><div class="n">STEP 5</div><h3>Token &amp; agreement</h3><p>Negotiation, token receipt and Agreement to Sell with clear payment milestones.</p></div>
+      <div class="step"><div class="n">STEP 6</div><h3>Registry &amp; keys</h3><p>Stamp duty, appointment at the Sub-Registrar, mutation and handover of keys.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="areas">
+  <div class="wrap split">
+    <div>
+      <div class="label"><span class="rule"></span>Where we work</div>
+      <h2 style="font-size:clamp(1.9rem,3.6vw,3rem);font-weight:750;color:var(--navy);margin:12px 0 18px">South Delhi, block by block</h2>
+      <p style="color:var(--muted);margin:0 0 28px;max-width:46ch">Our office is next to Gol Chakkar in Malviya Nagar. Most of our deals are within a few kilometres of it.</p>
+      <ul class="areas">
+        <li class="home">Malviya Nagar <span>Our office</span></li>
+        <li>Saket <span>Builder floors</span></li>
+        <li>Shivalik <span>Builder floors</span></li>
+        <li>Sheikh Sarai <span>DDA flats</span></li>
+        <li>Hauz Khas <span>Builder floors</span></li>
+        <li>Sarvodaya Enclave <span>Builder floors</span></li>
+        <li>Geetanjali Enclave <span>Builder floors</span></li>
+        <li>Panchsheel Park <span>Floors &amp; plots</span></li>
+        <li>Greater Kailash <span>Builder floors</span></li>
+        <li>Navjeevan Vihar <span>Floors &amp; plots</span></li>
+      </ul>
+    </div>
+    <div class="owners" id="owners">
+      <div class="label">For owners</div>
+      <h3>Selling or letting out your floor?</h3>
+      <p>Tell us the plot size, floor and expected price. We visit, photograph and share an honest market view within a day. Keep these papers handy:</p>
+      <ul class="docs">
+        <li>Sale deed or registry copy</li>
+        <li>Latest MCD property tax receipt</li>
+        <li>Electricity and water bills</li>
+        <li>Completion or occupancy certificate, if issued</li>
+        <li>Builder–owner collaboration agreement, for new floors</li>
+      </ul>
+      <a class="btn gold" href="#contact" data-purpose="Sell / Rent out my property">List my property</a>
+    </div>
+  </div>
+</section>
+
+<section class="block contact" id="contact">
+  <div class="wrap split">
+    <div>
+      <div class="label"><span class="rule"></span>Visit or call</div>
+      <h2 style="font-size:clamp(1.9rem,3.6vw,3rem);font-weight:750;color:var(--navy);margin:12px 0 28px">Talk to MV Homes</h2>
+      <div class="cinfo">
+        <div class="crow"><div class="label">Phone</div><div class="v num"><a href="tel:+919911354620">+91 99113 54620</a><button class="copy" data-copy="+91 99113 54620">Copy</button></div></div>
+        <div class="crow"><div class="label">Email</div><div class="v"><a href="mailto:mvproperties2000@gmail.com">mvproperties2000@gmail.com</a><button class="copy" data-copy="mvproperties2000@gmail.com">Copy</button></div></div>
+        <div class="crow"><div class="label">Office</div><div class="v">F 2/1, Ground Floor, F Block, Malviya Nagar<br>Near Gol Chakkar Shiv Mandir, New Delhi 110017<br><a href="https://www.google.com/maps/search/?api=1&amp;query=F+2%2F1+F+Block+Malviya+Nagar+New+Delhi+110017" target="_blank" rel="noopener">Get directions</a></div></div>
+        <div class="crow"><div class="label">Hours</div><div class="v num">Every day, 9:00 am – 9:00 pm</div></div>
+        <div class="crow"><div class="label">Online</div><div class="v"><a href="https://www.mvpropertiess.com" target="_blank" rel="noopener">mvpropertiess.com</a> &nbsp;·&nbsp; <a href="https://www.facebook.com/search/top?q=MV%20Properties%20Regd" target="_blank" rel="noopener">Facebook</a></div></div>
+      </div>
+    </div>
+    <form class="enquiry" id="enq" novalidate>
+      <h3>Send an enquiry</h3>
+      <p class="note">Your message opens in WhatsApp, addressed to our office number.</p>
+      <div class="row2">
+        <div class="field"><label for="eName">Name</label><input id="eName" autocomplete="name" placeholder="Your name"></div>
+        <div class="field"><label for="ePhone">Phone</label><input id="ePhone" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="ePurpose">I want to</label><select id="ePurpose"><option>Buy a property</option><option>Rent a property</option><option>Sell / Rent out my property</option></select></div>
+        <div class="field"><label for="eBudget">Budget</label><input id="eBudget" placeholder="e.g. ₹2.5 Cr or ₹60,000/month"></div>
+      </div>
+      <div class="field"><label for="eMsg">Message</label><textarea id="eMsg" placeholder="Colony, floor, BHK, parking…"></textarea></div>
+      <p class="err" id="eErr" hidden></p>
+      <a class="btn" id="eSend" href="https://wa.me/919911354620" target="_blank" rel="noopener">Send on WhatsApp</a>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="MV Homes">
+      <svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B5862A"/></svg>
+      <span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span>
+    </a>
+    <span>F 2/1, F Block, Malviya Nagar, New Delhi 110017 · <a href="tel:+919911354620">+91 99113 54620</a></span>
+    <span>© <span id="yr">2026</span> MV Properties</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+/* ---------- listings: edit this array to update the site ---------- */
+var LISTINGS=[
+ {id:1,p:"sale",loc:"Malviya Nagar",title:"Park-facing 3 BHK builder floor",bhk:3,plot:"200 sq. yd.",floor:"Second",facing:"East",price:"₹2.65 Cr",extra:"Lift · stilt parking"},
+ {id:2,p:"sale",loc:"Saket",title:"New 4 BHK with roof rights",bhk:4,plot:"250 sq. yd.",floor:"Third",facing:"North",price:"₹4.10 Cr",extra:"Lift · roof terrace"},
+ {id:3,p:"sale",loc:"Shivalik",title:"Ground floor 3 BHK with lawn",bhk:3,plot:"180 sq. yd.",floor:"Ground",facing:"West",price:"₹2.20 Cr",extra:"Private lawn"},
+ {id:4,p:"sale",loc:"Sarvodaya Enclave",title:"Corner 4 BHK builder floor",bhk:4,plot:"300 sq. yd.",floor:"First",facing:"North-East",price:"₹5.25 Cr",extra:"Corner plot · lift"},
+ {id:5,p:"sale",loc:"Sheikh Sarai",title:"2 BHK DDA flat, Phase I",bhk:2,plot:"85 sq. m",floor:"First",facing:"South",price:"₹1.15 Cr",extra:"Freehold"},
+ {id:6,p:"sale",loc:"Malviya Nagar",title:"Freshly built 3 BHK floor",bhk:3,plot:"150 sq. yd.",floor:"First",facing:"North",price:"₹1.95 Cr",extra:"Lift · modular kitchen"},
+ {id:7,p:"rent",loc:"Malviya Nagar",title:"Furnished 2 BHK floor",bhk:2,plot:"100 sq. yd.",floor:"Second",facing:"East",price:"₹42,000",per:"/month",extra:"Semi-furnished"},
+ {id:8,p:"rent",loc:"Saket",title:"3 BHK floor near Select City",bhk:3,plot:"200 sq. yd.",floor:"First",facing:"North",price:"₹78,000",per:"/month",extra:"Lift · 1 car park"},
+ {id:9,p:"rent",loc:"Geetanjali Enclave",title:"4 BHK duplex with terrace",bhk:4,plot:"250 sq. yd.",floor:"Third",facing:"West",price:"₹1,25,000",per:"/month",extra:"Roof terrace"},
+ {id:10,p:"rent",loc:"Hauz Khas",title:"Ground floor 3 BHK, lawn",bhk:3,plot:"300 sq. yd.",floor:"Ground",facing:"East",price:"₹1,10,000",per:"/month",extra:"Pet friendly"}
+];
+/* To show a real photo instead of the floor plan, add  photo:"images/listing-1.jpg"  to a listing. */
+
+var LOCS=["Malviya Nagar","Saket","Shivalik","Sheikh Sarai","Hauz Khas","Sarvodaya Enclave","Geetanjali Enclave","Panchsheel Park","Greater Kailash","Navjeevan Vihar"];
+var state={p:"sale",loc:"",bhk:"",floor:""};
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+function fillLocs(sel,anyLabel){sel.innerHTML='<option value="">'+anyLabel+'</option>'+LOCS.map(function(l){return '<option>'+l+'</option>'}).join('')}
+fillLocs($('#fLoc'),'All of South Delhi'); fillLocs($('#lLoc'),'All localities');
+
+/* floor plan drawings, 160 x 100 units */
+var PLANS={
+ 2:[["Bed 1",0,0,55,48],["Bed 2",0,48,55,52],["Living / Dining",55,0,65,62],["Kitchen",55,62,35,38],["Toilet",90,62,30,20],["Toilet",90,82,30,18],["Balcony",120,0,40,30],["Lobby",120,30,40,70]],
+ 3:[["Bed 1",0,0,50,45],["Bed 2",0,45,50,55],["Living",50,0,62,55],["Dining",50,55,38,45],["Kitchen",88,55,24,45],["Bed 3",112,0,48,52],["Toilet",112,52,24,24],["Toilet",136,52,24,24],["Lift / Stair",112,76,48,24]],
+ 4:[["Bed 1",0,0,44,40],["Bed 2",0,40,44,38],["Toilet",0,78,22,22],["Puja",22,78,22,22],["Living",44,0,62,50],["Dining",44,50,40,50],["Kitchen",84,50,22,50],["Bed 3",106,0,54,36],["Bed 4",106,36,54,34],["Toilets",106,70,26,30],["Lift",132,70,28,30]]
+};
+function planSVG(bhk,seed){
+  var rooms=PLANS[bhk]||PLANS[3], s='<svg viewBox="-12 -10 184 122" preserveAspectRatio="xMidYMid meet" role="img" aria-label="'+bhk+' BHK floor plan">';
+  rooms.forEach(function(r){
+    var fill=/Bed/.test(r[0])?'#E2E8F2':(/Living|Dining/.test(r[0])?'#FFFFFF':'#F0F3F8');
+    s+='<rect x="'+r[1]+'" y="'+r[2]+'" width="'+r[3]+'" height="'+r[4]+'" fill="'+fill+'" stroke="#0A2A5E" stroke-width=".9"/>';
+    var fs=r[3]<30?3.4:4.2;
+    s+='<text x="'+(r[1]+r[3]/2)+'" y="'+(r[2]+r[4]/2+1.4)+'" text-anchor="middle" font-family="Hanken Grotesk,Arial,sans-serif" font-size="'+fs+'" fill="#56637A">'+r[0]+'</text>';
+  });
+  s+='<rect x="0" y="0" width="160" height="100" fill="none" stroke="#0A2A5E" stroke-width="2.4"/>';
+  /* door gaps and swing on two rooms for realism */
+  s+='<line x1="'+(20+seed%10)+'" y1="48" x2="'+(30+seed%10)+'" y2="48" stroke="#F0F3F8" stroke-width="1.6"/>';
+  s+='<path d="M '+(20+seed%10)+' 48 a 10 10 0 0 1 10 -10" fill="none" stroke="#0A2A5E" stroke-width=".5"/>';
+  /* north arrow */
+  s+='<g transform="translate(166,96)"><line x1="0" y1="0" x2="0" y2="-12" stroke="#B5862A" stroke-width=".8"/><path d="M -2.5 -9 L 0 -13 L 2.5 -9 Z" fill="#B5862A"/><text x="0" y="5" text-anchor="middle" font-size="4" font-family="Archivo,Arial,sans-serif" font-weight="700" fill="#B5862A">N</text></g>';
+  return s+'</svg>';
+}
+
+function render(){
+  var items=LISTINGS.filter(function(x){return x.p===state.p&&(!state.loc||x.loc===state.loc)&&(!state.bhk||String(x.bhk)===state.bhk)&&(!state.floor||x.floor===state.floor)});
+  var g=$('#grid');
+  if(!items.length){g.innerHTML='<div class="empty">Nothing listed with these filters right now. Call <b>+91 99113 54620</b> and we will tell you what is coming up off-market.</div>'}
+  else g.innerHTML=items.map(function(x){
+    var media=x.photo?'<img src="'+x.photo+'" alt="'+x.title+'" loading="lazy">':planSVG(x.bhk,x.id*7);
+    return '<article class="card"><div class="plan">'+media+'<span class="tag'+(x.p==='rent'?' rent':'')+'">'+(x.p==='rent'?'For rent':'For sale')+'</span></div>'+
+     '<div class="body"><div class="loc"><span>'+x.loc+', New Delhi</span><span>'+x.facing+' facing</span></div><h3>'+x.title+'</h3>'+
+     '<dl class="specs"><div><dt>Plot</dt><dd class="num">'+x.plot+'</dd></div><div><dt>Floor</dt><dd>'+x.floor+'</dd></div><div><dt>Config</dt><dd>'+x.bhk+' BHK</dd></div></dl>'+
+     '<div class="loc"><span>'+x.extra+'</span></div>'+
+     '<div class="foot"><span class="price num">'+x.price+(x.per?' <small>'+x.per+'</small>':'')+'</span><button class="enq" data-id="'+x.id+'">Enquire</button></div></div></article>';
+  }).join('');
+  $('#count').textContent=items.length+(items.length===1?' property':' properties');
+}
+function setPurpose(p){state.p=p;$$('[data-p]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.p===p))});render()}
+$$('[data-p]').forEach(function(b){b.addEventListener('click',function(){setPurpose(b.dataset.p)})});
+$('#lLoc').addEventListener('change',function(e){state.loc=e.target.value;render()});
+$('#lBhk').addEventListener('change',function(e){state.bhk=e.target.value;render()});
+$('#lFloor').addEventListener('change',function(e){state.floor=e.target.value;render()});
+$('#finder').addEventListener('submit',function(e){e.preventDefault();state.loc=$('#fLoc').value;state.bhk=$('#fBhk').value;state.floor='';$('#lLoc').value=state.loc;$('#lBhk').value=state.bhk;$('#lFloor').value='';render();$('#properties').scrollIntoView()});
+
+/* enquiry → WhatsApp */
+function waLink(){
+  var n=$('#eName').value.trim(),ph=$('#ePhone').value.trim(),pu=$('#ePurpose').value,b=$('#eBudget').value.trim(),m=$('#eMsg').value.trim();
+  var t='Hello MV Homes,\nName: '+(n||'-')+'\nPhone: '+(ph||'-')+'\nI want to: '+pu+(b?'\nBudget: '+b:'')+(m?'\n'+m:'');
+  $('#eSend').href='https://wa.me/919911354620?text='+encodeURIComponent(t);
+}
+['#eName','#ePhone','#ePurpose','#eBudget','#eMsg'].forEach(function(s){$(s).addEventListener('input',waLink);$(s).addEventListener('change',waLink)});
+$('#eSend').addEventListener('click',function(e){
+  var ph=$('#ePhone').value.replace(/\D/g,''),err=$('#eErr');
+  if(!$('#eName').value.trim()||ph.length<10){e.preventDefault();err.textContent='Add your name and a 10-digit phone number so we can call you back.';err.hidden=false;return}
+  err.hidden=true;
+});
+$('#grid').addEventListener('click',function(e){
+  var b=e.target.closest('.enq');if(!b)return;
+  var x=LISTINGS.filter(function(l){return l.id==b.dataset.id})[0];
+  $('#ePurpose').value=x.p==='rent'?'Rent a property':'Buy a property';
+  $('#eMsg').value='I am interested in: '+x.title+', '+x.loc+' ('+x.plot+', '+x.floor+' floor, '+x.price+(x.per||'')+').';
+  waLink();$('#contact').scrollIntoView();setTimeout(function(){$('#eName').focus({preventScroll:true})},400);
+});
+$$('[data-purpose]').forEach(function(a){a.addEventListener('click',function(){$('#ePurpose').value=a.dataset.purpose;waLink()})});
+waLink();
+
+/* copy buttons */
+$$('.copy').forEach(function(b){b.addEventListener('click',function(){
+  var v=b.dataset.copy,done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)};
+  try{navigator.clipboard.writeText(v).then(done,function(){sel(b)})}catch(_){sel(b)}
+})});
+function sel(b){var r=document.createRange();r.selectNodeContents(b.previousElementSibling);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+
+/* mobile menu */
+$('#menuBtn').addEventListener('click',function(){var n=$('#nav'),o=n.classList.toggle('open');this.setAttribute('aria-expanded',String(o))});
+$$('#nav a').forEach(function(a){a.addEventListener('click',function(){$('#nav').classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false')})});
+$('#yr').textContent=new Date().getFullYear();
+
+/* elevation of a South Delhi builder floor: stilt + 4 floors */
+(function(){
+  var N='#0A2A5E',L='#D6DDE8',G='#B5862A',s='';
+  var x0=20,w=290,base=500,stilt=70,fh=92;
+  s+='<line x1="0" y1="'+base+'" x2="420" y2="'+base+'" stroke="'+N+'" stroke-width="2"/>';
+  /* stilt */
+  for(var i=0;i<4;i++){s+='<rect x="'+(x0+i*96)+'" y="'+(base-stilt)+'" width="12" height="'+stilt+'" fill="'+N+'"/>'}
+  s+='<rect x="'+(x0+30)+'" y="'+(base-26)+'" width="44" height="18" rx="5" fill="none" stroke="'+N+'" stroke-width="1.2"/><circle cx="'+(x0+40)+'" cy="'+(base-7)+'" r="4" fill="'+N+'"/><circle cx="'+(x0+64)+'" cy="'+(base-7)+'" r="4" fill="'+N+'"/>';
+  s+='<rect x="'+(x0+126)+'" y="'+(base-26)+'" width="44" height="18" rx="5" fill="none" stroke="'+N+'" stroke-width="1.2"/><circle cx="'+(x0+136)+'" cy="'+(base-7)+'" r="4" fill="'+N+'"/><circle cx="'+(x0+160)+'" cy="'+(base-7)+'" r="4" fill="'+N+'"/>';
+  var names=['Ground','First','Second','Third'];
+  for(var f=0;f<4;f++){
+    var y=base-stilt-(f+1)*fh;
+    s+='<rect x="'+x0+'" y="'+y+'" width="'+w+'" height="'+fh+'" fill="#FFFFFF" stroke="'+N+'" stroke-width="2"/>';
+    s+='<rect x="'+(x0+18)+'" y="'+(y+16)+'" width="110" height="52" fill="#E2E8F2" stroke="'+N+'" stroke-width="1.2"/>';
+    s+='<line x1="'+(x0+73)+'" y1="'+(y+16)+'" x2="'+(x0+73)+'" y2="'+(y+68)+'" stroke="'+N+'" stroke-width="1"/>';
+    s+='<rect x="'+(x0+150)+'" y="'+(y+16)+'" width="56" height="52" fill="#E2E8F2" stroke="'+N+'" stroke-width="1.2"/>';
+    s+='<rect x="'+(x0+222)+'" y="'+(y+10)+'" width="64" height="64" fill="#F0F3F8" stroke="'+N+'" stroke-width="1.2"/>';
+    /* balcony rail */
+    s+='<rect x="'+(x0+10)+'" y="'+(y+fh-18)+'" width="128" height="18" fill="#FFFFFF" stroke="'+N+'" stroke-width="1.4"/>';
+    for(var k=1;k<16;k++){s+='<line x1="'+(x0+10+k*8)+'" y1="'+(y+fh-18)+'" x2="'+(x0+10+k*8)+'" y2="'+(y+fh)+'" stroke="'+N+'" stroke-width=".8"/>'}
+    s+='<text x="'+(x0+w+28)+'" y="'+(y+fh/2+4)+'" font-family="Archivo,Arial,sans-serif" font-size="11" font-weight="600" letter-spacing="1.2" fill="'+N+'">'+names[f].toUpperCase()+'</text>';
+  }
+  var top=base-stilt-4*fh;
+  /* parapet + mumty */
+  s+='<rect x="'+(x0-6)+'" y="'+(top-10)+'" width="'+(w+12)+'" height="10" fill="'+N+'"/>';
+  s+='<rect x="'+(x0+214)+'" y="'+(top-58)+'" width="80" height="48" fill="#FFFFFF" stroke="'+N+'" stroke-width="2"/><rect x="'+(x0+236)+'" y="'+(top-44)+'" width="22" height="34" fill="#E2E8F2" stroke="'+N+'" stroke-width="1.2"/>';
+  s+='<text x="'+(x0+w+28)+'" y="'+(top-20)+'" font-family="Archivo,Arial,sans-serif" font-size="11" font-weight="600" letter-spacing="1.2" fill="'+N+'">ROOF</text>';
+  s+='<text x="'+(x0+w+28)+'" y="'+(base-stilt/2+4)+'" font-family="Archivo,Arial,sans-serif" font-size="11" font-weight="600" letter-spacing="1.2" fill="'+N+'">STILT</text>';
+  /* gold height line */
+  s+='<line x1="'+(x0+w+14)+'" y1="'+(top-58)+'" x2="'+(x0+w+14)+'" y2="'+base+'" stroke="'+G+'" stroke-width="3"/>';
+  for(var t=0;t<=4;t++){var yy=base-stilt-t*fh;s+='<line x1="'+(x0+w+8)+'" y1="'+yy+'" x2="'+(x0+w+20)+'" y2="'+yy+'" stroke="'+G+'" stroke-width="1.5"/>'}
+  s+='<text x="'+x0+'" y="'+(top-72)+'" font-family="Hanken Grotesk,Arial,sans-serif" font-size="11" fill="#56637A">Typical South Delhi builder floor · front elevation</text>';
+  document.getElementById('elev').innerHTML=s;
+})();
+
+render();
+})();
+</script>
+
+</body>
+</html>
