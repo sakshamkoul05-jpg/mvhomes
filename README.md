@@ -1,22 +1,19 @@
-# MV Homes
+# MV Homes website
 
-Static website for MV Homes (MV Properties, Regd.), Malviya Nagar, New Delhi.
+Static site for MV Homes (MV Properties, Regd.), Malviya Nagar, New Delhi. No build step needed to host: upload this folder as-is (GitHub Pages, Netlify, Vercel, Hostinger).
 
-No build step. Open `index.html` in a browser, or host the folder on any static host (GitHub Pages, Netlify, Hostinger).
+## Pages
+index (Home) · about · buy · rent · sell · localities · process · gallery · guide (Buyer's guide + EMI) · contact
 
-## Updating listings
+## Editing content
+- **Listings, photos, localities:** `assets/data.js`. Each listing has `p` (`sale`/`rent`), `loc`, `bhk`, `plot`, `floor` (`Ground`/`First`/`Second`/`Third`), `price`, and `img`.
+- **Photos:** currently free Unsplash photos (https://unsplash.com/license). Replace with the client's real photos: put files in `images/` and set `img:"images/your-photo.jpg"`.
+- **Styles:** `assets/style.css`. **Behaviour/animations:** `assets/main.js`.
 
-Listings live in the `LISTINGS` array near the top of the `<script>` in `index.html`. Each entry looks like:
+## Enquiry form → email
+Forms send to mvproperties2000@gmail.com through FormSubmit (free, no backend).
+The **first** submission triggers an activation email from FormSubmit to that inbox. Click "Activate" once; after that every enquiry arrives by email.
+If email fails, the form offers to send the same details on WhatsApp.
 
-```js
-{id:1, p:"sale", loc:"Malviya Nagar", title:"Park-facing 3 BHK builder floor",
- bhk:3, plot:"200 sq. yd.", floor:"Second", facing:"East", price:"₹2.65 Cr", extra:"Lift · stilt parking"}
-```
-
-- `p` is `"sale"` or `"rent"`. Rentals also take `per:"/month"`.
-- `floor` must be one of `Ground`, `First`, `Second`, `Third` so the floor filter works.
-- To show a photo instead of the floor-plan drawing, add `photo:"images/listing-1.jpg"` and put the image in an `images/` folder.
-
-## Enquiries
-
-The enquiry form opens WhatsApp to +91 99113 54620 with the details pre-filled. To change the number, search `919911354620` in `index.html`.
+## WhatsApp
+Number: 919911354620. Search for it in `assets/data.js` / `assets/main.js` to change.

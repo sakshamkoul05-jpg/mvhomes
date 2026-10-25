@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Buyer’s guide, EMI calculator and FAQ · MV Homes</title>
+<meta name="description" content="Home loan EMI calculator, costs to budget for when buying in Delhi, and answers to common questions about builder floors.">
+<meta property="og:title" content="Buyer’s guide, EMI calculator and FAQ · MV Homes"><meta property="og:description" content="Home loan EMI calculator, costs to budget for when buying in Delhi, and answers to common questions about builder floors."><meta property="og:type" content="website">
+<meta name="theme-color" content="#06152F">
+<link rel="icon" href="logo-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="guide">
+<div id="doors" class="shut" aria-hidden="true">
+  <div class="indicator"><span id="dArr">▼</span><span id="dDigit">·</span><small id="dName">MV Homes</small></div>
+  <div class="door l"><svg viewBox="585 90 368 812"><polygon fill="#E7ECF5" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/></svg></div>
+  <div class="door r"><svg viewBox="967 90 368 812"><polygon fill="#E7ECF5" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/></svg></div>
+</div>
+<script>(function(){var d=document.getElementById('doors');if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.remove('shut');return}setTimeout(function(){d.classList.remove('shut')},650)})();</script>
+<noscript><style>#doors{display:none}</style></noscript>
+
+<header class="top" id="hdr"><div class="wrap">
+  <a class="brand" href="index.html" aria-label="MV Homes home"><svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B98A2E"/></svg><span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span></a>
+  <nav class="tabs" id="tabs" aria-label="Main"></nav>
+  <div class="hdr-actions">
+    <a class="pill fill hdr-call" href="tel:+919911354620"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>99113 54620</span></a>
+    <button class="pill" data-enquire="">Enquire</button>
+    <button class="pill menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span class="bars"><i></i><i></i></span>Menu</button>
+  </div>
+</div></header>
+
+<div id="menu" hidden><div class="wrap"><button class="pill close" id="menuClose">Close</button><div class="eyebrow" style="color:var(--glow);margin-bottom:10px">Building directory</div><ol id="menuList"></ol>
+<div class="mfoot"><a class="btn gold" href="tel:+919911354620">Call 99113 54620</a><a class="btn wa" href="https://wa.me/919911354620?text=Hello%20MV%20Homes%2C%20I%20found%20you%20on%20your%20website." target="_blank" rel="noopener">WhatsApp</a></div></div></div>
+
+<main>
+<section class="phero " data-dark-top><div class="ph-img"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=78" alt="" fetchpriority="high"></div>
+<div class="wrap"><div class="eyebrow">Buyer’s guide</div><h1 class="h-xl"><span class="ln"><span>Know the numbers</span></span><span class="ln"><span><b>before the visit.</b></span></span></h1><p class="sub">An EMI calculator, the costs to budget for beyond the price, and answers to what buyers ask us most.</p></div><div class="crumb" aria-hidden="true">08</div></section>
+<section class="sec"><div class="wrap">
+  <div class="headrow"><div><div class="plate"><span class="tag">EMI</span><span class="rule"></span></div><h2 class="h-lg rv">Home loan <b>EMI</b></h2></div><p class="lead rv" style="margin-top:0">Move the sliders. This is an estimate; your bank's offer decides the final figure.</p></div>
+  <div class="calc rv">
+    <div class="in">
+      <div class="range"><div class="rh"><label for="amt">Loan amount</label><output id="amtOut" class="num"></output></div><input type="range" id="amt" min="10" max="1000" step="5" value="200"></div>
+      <div class="range"><div class="rh"><label for="rate">Interest rate (per year)</label><output id="rateOut" class="num"></output></div><input type="range" id="rate" min="6" max="14" step="0.05" value="8.5"></div>
+      <div class="range"><div class="rh"><label for="tenure">Tenure</label><output id="tenOut" class="num"></output></div><input type="range" id="tenure" min="5" max="30" step="1" value="20"></div>
+    </div>
+    <div class="out"><div><div class="eyebrow" style="color:var(--on-night-muted)">Monthly EMI</div><div class="emi num" id="emi">₹0</div></div>
+      <div class="donut"><svg viewBox="0 0 140 140" aria-hidden="true"><circle cx="70" cy="70" r="54" fill="none" stroke="#E7ECF5" stroke-opacity=".9" stroke-width="18"/><circle id="donutInt" cx="70" cy="70" r="54" fill="none" stroke="#F4C766" stroke-width="18" stroke-dasharray="0 340" transform="rotate(-90 70 70)"/></svg>
+        <div class="legend"><div><i style="background:#E7ECF5"></i>Principal <b id="prinOut" class="num"></b></div><div><i style="background:#F4C766"></i>Interest <b id="intOut" class="num"></b></div><div style="color:var(--on-night-muted)">Total payable <b id="totOut" class="num" style="color:#fff"></b></div></div></div>
+      <button class="btn gold" data-enquire="Buy a property" style="justify-self:start">Find homes in this budget</button></div>
+  </div>
+</div></section>
+<section class="sec white"><div class="wrap">
+  <div class="headrow"><div><div class="plate"><span class="tag">₹</span><span class="rule"></span></div><h2 class="h-lg rv">Costs beyond <b>the price</b></h2></div><p class="lead rv" style="margin-top:0">Typical Delhi figures on the circle rate or deal value, whichever is higher. Rates change, so we confirm the current ones before your registry.</p></div>
+  <div class="costs">
+    <div class="cost rv"><div class="v num" data-to="6" data-unit="%">6%</div><h4>Stamp duty, male buyer</h4><p>Lower for women buyers (around 4%) and in between for joint ownership.</p></div>
+    <div class="cost rv"><div class="v num" data-to="1" data-unit="%">1%</div><h4>Registration fee</h4><p>Paid at the Sub-Registrar office, plus a small fixed pasting fee.</p></div>
+    <div class="cost rv"><div class="v num" data-to="2" data-unit="–3 wks">2–3 wks</div><h4>Mutation in MCD records</h4><p>After registry, the property tax account is moved to your name.</p></div>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap" style="max-width:960px">
+  <div class="plate"><span class="tag">FAQ</span><span class="rule"></span></div><h2 class="h-lg rv" style="margin-bottom:30px">What buyers <b>ask us</b></h2>
+  <div class="faq">
+    <details><summary>What is a builder floor?<span class="pm"></span></summary><div class="ans"><p>An independent floor in a low-rise building, usually stilt parking plus four floors, built by a developer on a single plot in collaboration with the landowner. Each floor is sold separately with an undivided share in the land.</p></div></details>
+    <details><summary>What does "roof rights" mean?<span class="pm"></span></summary><div class="ans"><p>The top floor sometimes comes with the right to use the roof terrace. Check that it is written in the sale deed, not just promised verbally.</p></div></details>
+    <details><summary>Freehold or leasehold, does it matter?<span class="pm"></span></summary><div class="ans"><p>Yes. Freehold is simpler to sell and to get a loan on. Many DDA flats and older plots have been converted from leasehold to freehold; we check the conversion deed.</p></div></details>
+    <details><summary>How much token amount is normal?<span class="pm"></span></summary><div class="ans"><p>It varies by deal. Never pay a token before the title papers have been checked. We tell you what is usual for the colony and price range.</p></div></details>
+    <details><summary>Will banks give a loan on a builder floor?<span class="pm"></span></summary><div class="ans"><p>Most major banks do, provided the title chain is clear and the building has the required approvals. We can share the documents your bank will ask for.</p></div></details>
+    <details><summary>Do you charge buyers a fee?<span class="pm"></span></summary><div class="ans"><p>Our brokerage is discussed and agreed with you upfront, before any visits. Call us and we will explain it plainly.</p></div></details>
+  </div>
+</div></section>
+
+<section class="sec tight"><div class="wrap"><div class="help rv"><div><h3>Need help choosing? <b>Talk to us.</b></h3><p>Tell us your budget and colonies. We will send a shortlist on WhatsApp the same day.</p></div><div class="acts"><a class="btn wa" href="https://wa.me/919911354620?text=Hello%20MV%20Homes%2C%20I%20found%20you%20on%20your%20website." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3Z"/></svg>WhatsApp</a><a class="btn gold" href="tel:+919911354620"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call 99113 54620</a><button class="btn line" style="color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)" data-enquire="">Send enquiry</button></div></div></div></section>
+</main>
+
+<footer class="stilt">
+  <div class="slab"></div>
+  <div class="park" aria-hidden="true"><div class="cols"><i></i><i></i><i></i><i></i><i></i></div>
+    <svg viewBox="0 0 120 46" style="left:14%"><path d="M6 34h108v-8c0-4-3-6-7-7l-14-3-12-10H40L26 16 12 18c-4 1-6 3-6 7z" fill="none" stroke="#3E5A8A" stroke-width="2"/><circle cx="30" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/><circle cx="92" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/></svg>
+    <svg viewBox="0 0 120 46" style="left:54%"><path d="M6 34h108v-8c0-4-3-6-7-7l-14-3-12-10H40L26 16 12 18c-4 1-6 3-6 7z" fill="none" stroke="#3E5A8A" stroke-width="2"/><circle cx="30" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/><circle cx="92" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a class="brand" href="index.html" aria-label="MV Homes home"><svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B98A2E"/></svg><span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span></a><p>Sale, purchase and rental of builder floors, flats and plots in Malviya Nagar and across South Delhi.</p></div>
+      <div><h4>Properties</h4><ul><li><a href="buy.html">Homes for sale</a></li><li><a href="rent.html">Homes to rent</a></li><li><a href="sell.html">Sell or let out</a></li><li><a href="localities.html">Localities</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div><h4>MV Homes</h4><ul><li><a href="about.html">About us</a></li><li><a href="process.html">How we work</a></li><li><a href="guide.html">Buyer’s guide & EMI</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Office</h4><ul><li>F 2/1, Ground Floor, F Block, Malviya Nagar, near Gol Chakkar Shiv Mandir, New Delhi 110017</li><li><a href="tel:+919911354620">+91 99113 54620</a></li><li><a href="mailto:mvproperties2000@gmail.com">mvproperties2000@gmail.com</a></li><li>Open daily, 9 am – 9 pm</li></ul></div>
+    </div>
+    <div class="legal"><span>© <span class="yr">2026</span> MV Properties (Regd.). All rights reserved.</span><span>Listings and prices are indicative and subject to availability.</span></div>
+  </div>
+</footer>
+
+<div class="wa-float" id="waFloat"></div>
+
+<div id="enquiry" hidden role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+  <div class="scrim"></div>
+  <div class="sheet"><div class="sh-top"><button class="x" id="enqClose" aria-label="Close">×</button><div class="eyebrow" style="color:var(--glow)">Enquiry</div><h3 id="enqTitle" style="margin-top:8px">Tell us what you need</h3><p>We call back within working hours. Or send the same on WhatsApp.</p></div><div class="sh-body" id="enqBody"></div></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

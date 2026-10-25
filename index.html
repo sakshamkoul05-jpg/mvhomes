@@ -3,860 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MV Homes</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="MV Homes (MV Properties, Regd.) — builder floors, flats and plots to buy, sell and rent in Malviya Nagar and across South Delhi.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600&display=swap">
-<style>
-/* Layout: the site is a building. Roof (hero) → Floor 3 (enter a home) → Floor 2 (listings) → Floor 1 (services, stairs) → Ground (lobby/contact) → Stilt (footer). A lift panel tracks the floor; lift doors built from the logo's split mark carry you between floors. */
-:root{
-  --night:#06152F; --night-2:#0B2148; --navy:#0A2A5E; --ink:#0F1A2D; --muted:#5B6880;
-  --paper:#F6F7FA; --white:#FFFFFF; --line:#D7DEEA; --gold:#B98A2E; --glow:#F4C766; --glow-hi:#FFE6A6;
-  --on-night:#E7ECF5; --on-night-muted:#93A3C2; --night-line:rgba(231,236,245,.16);
-  --display:"Archivo","Arial Narrow",Arial,sans-serif;
-  --body:"Hanken Grotesk","Segoe UI",Roboto,Arial,sans-serif;
-  --ease:cubic-bezier(.7,0,.25,1);
-  --gut-l:max(20px,env(safe-area-inset-left,0px)); --gut-r:max(20px,env(safe-area-inset-right,0px));
-  color-scheme:light;
-}
-*{box-sizing:border-box}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--night)}
-a{color:inherit}
-img{max-width:100%}
-button{font:inherit}
-:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
-.wrap{max-width:1240px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
-h1,h2,h3{font-family:var(--display);margin:0;line-height:1.02;text-wrap:balance;letter-spacing:-.015em}
-.eyebrow{font-family:var(--display);font-stretch:100%;font-weight:600;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
-.num{font-variant-numeric:tabular-nums}
-
-/* ---------- lift doors (loader + floor travel) ---------- */
-#doors{position:fixed;inset:0;z-index:200;pointer-events:none}
-#doors .door{position:absolute;top:0;bottom:0;width:50.5%;background:var(--night);transition:transform .9s var(--ease);display:flex;align-items:center;overflow:hidden}
-#doors .door.l{left:0;transform:translateX(-101%);justify-content:flex-end;border-right:3px solid var(--glow)}
-#doors .door.r{right:0;transform:translateX(101%);justify-content:flex-start}
-#doors.shut{pointer-events:auto}
-#doors.shut .door{transform:translateX(0)}
-#doors .door svg{height:min(30vh,240px);width:auto;flex:none}
-#doors .door.l svg{margin-right:-2px}
-#doors .door::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 7px);pointer-events:none}
-#doors .indicator{position:absolute;top:calc(env(safe-area-inset-top,0px) + 7vh);left:50%;transform:translateX(-50%);z-index:2;display:flex;align-items:center;gap:12px;padding:10px 18px;background:#03102A;border:1px solid var(--night-line);color:var(--glow);font-family:var(--display);font-stretch:62%;font-weight:700;font-size:2rem;line-height:1;opacity:0;transition:opacity .3s}
-#doors.shut .indicator{opacity:1}
-#doors .indicator small{font-family:var(--body);font-size:.7rem;font-weight:600;letter-spacing:.16em;color:var(--on-night-muted);text-transform:uppercase}
-@media (prefers-reduced-motion:reduce){#doors{display:none}}
-
-/* ---------- header ---------- */
-header.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:80;color:var(--on-night);transition:background .4s,color .4s,border-color .4s;border-bottom:1px solid transparent}
-header.top.solid{background:rgba(246,247,250,.92);backdrop-filter:blur(10px) saturate(1.2);color:var(--navy);border-bottom-color:var(--line)}
-header.top .wrap{display:flex;align-items:center;gap:20px;padding-block:16px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-.brand svg{width:34px;height:36px;flex:none}
-.brand .wm{font-family:var(--display);font-stretch:120%;font-weight:700;font-size:1.12rem;letter-spacing:.08em;line-height:1}
-.brand .wm small{display:block;font-size:.52rem;font-weight:500;letter-spacing:.24em;opacity:.7;margin-top:5px}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid currentColor;border-radius:999px;text-decoration:none;font-weight:600;font-size:.88rem;background:none;color:inherit;cursor:pointer;white-space:nowrap}
-.pill.fill{background:var(--glow);border-color:var(--glow);color:var(--night)}
-header.top.solid .pill.fill{background:var(--navy);border-color:var(--navy);color:#fff}
-.pill .bars{display:inline-grid;gap:4px}
-.pill .bars i{display:block;width:16px;height:1.5px;background:currentColor}
-
-/* ---------- lift panel ---------- */
-.lift{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:70;display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 8px;background:rgba(6,21,47,.92);border:1px solid var(--night-line);border-radius:999px;backdrop-filter:blur(8px)}
-.lift .readout{display:flex;flex-direction:column;align-items:center;width:42px;padding:6px 0 4px;background:#020B1D;border-radius:999px;color:var(--glow);font-family:var(--display);font-stretch:62%;font-weight:700;line-height:1}
-.lift .readout .arr{font-size:.6rem;height:10px;opacity:.9}
-.lift .readout .d{font-size:1.5rem;min-height:1.5rem}
-.lift button.fl{width:34px;height:34px;border-radius:50%;border:1px solid var(--night-line);background:transparent;color:var(--on-night-muted);font-family:var(--display);font-stretch:80%;font-weight:600;font-size:.82rem;cursor:pointer;position:relative;transition:color .25s,border-color .25s,box-shadow .25s}
-.lift button.fl:hover{color:#fff;border-color:var(--on-night-muted)}
-.lift button.fl.on{color:var(--glow);border-color:var(--glow);box-shadow:0 0 0 3px rgba(244,199,102,.15),inset 0 0 10px rgba(244,199,102,.25)}
-.lift button.fl .tip{position:absolute;right:calc(100% + 14px);top:50%;transform:translate(6px,-50%);white-space:nowrap;background:var(--night);color:var(--on-night);font-family:var(--body);font-stretch:100%;font-weight:500;font-size:.78rem;padding:6px 10px;border:1px solid var(--night-line);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
-.lift button.fl:hover .tip,.lift button.fl:focus-visible .tip{opacity:1;transform:translate(0,-50%)}
-.lift .toggle{display:none}
-.lift .fls{display:flex;flex-direction:column;gap:8px}
-
-/* ---------- roof: hero ---------- */
-.roof{position:relative;background:radial-gradient(120% 80% at 75% 0%,#13305F 0%,var(--night) 55%) ;color:var(--on-night);overflow:hidden}
-.roof .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:end;padding-block:calc(110px + env(safe-area-inset-top,0px)) 0;min-height:min(100svh,920px)}
-.roof .hero-copy{padding-bottom:90px;min-width:0}
-.roof .eyebrow{color:var(--glow);display:flex;align-items:center;gap:12px}
-.roof .eyebrow::before{content:"";width:28px;height:1px;background:var(--glow)}
-.roof h1{font-size:clamp(3rem,8.4vw,7.6rem);font-weight:250;font-stretch:118%;margin:22px 0 26px;line-height:.95}
-.roof h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
-.roof h1 .ln > span{display:block}
-.roof h1 b{font-weight:800}
-.roof h1 em{font-style:normal;font-weight:800;color:var(--glow)}
-.roof p.lede{max-width:46ch;color:var(--on-night-muted);font-size:1.08rem;margin:0 0 34px}
-.roof .ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.callbtn{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--on-night);font-weight:600}
-.callbtn .ring{width:44px;height:44px;border-radius:50%;border:1px solid var(--night-line);display:grid;place-items:center}
-.godown{display:inline-flex;align-items:center;gap:14px;padding:8px 22px 8px 8px;border-radius:999px;border:1px solid var(--glow);background:none;color:var(--on-night);cursor:pointer;font-weight:600}
-.godown .b{width:40px;height:40px;border-radius:50%;background:var(--glow);color:var(--night);display:grid;place-items:center;font-size:.8rem;box-shadow:0 0 18px rgba(244,199,102,.5)}
-.godown:hover .b{animation:press .5s}
-@keyframes press{50%{transform:scale(.88)}}
-.roof .bldg{min-width:0;align-self:end;position:relative}
-.roof .bldg svg{display:block;width:100%;max-width:470px;height:auto;margin-left:auto}
-.roof .ground{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--night-line)}
-.roof .meta{position:absolute;left:var(--gut-l);bottom:22px;display:flex;gap:28px;font-size:.8rem;color:var(--on-night-muted)}
-.win{fill:#13284E;transition:fill .5s}
-.win.on{fill:var(--glow);filter:drop-shadow(0 0 7px rgba(244,199,102,.75))}
-
-/* ---------- floor 3: enter ---------- */
-.enter{position:relative;background:var(--paper)}
-.enter .stage{display:none}
-.enter .home{padding-block:110px}
-.home-in{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.75fr);gap:48px;align-items:center}
-.plan-wrap{min-width:0;position:relative}
-.plan-wrap svg{display:block;width:100%;height:auto}
-.plan-wrap .wall{fill:none;stroke:var(--navy);stroke-linecap:square}
-.plan-wrap .ow{stroke-width:7}
-.plan-wrap .iw{stroke-width:3}
-.plan-wrap .furn{fill:none;stroke:#8C9AB3;stroke-width:1.2}
-.plan-wrap .rl{font-family:var(--display);font-stretch:100%;font-weight:700;font-size:11px;letter-spacing:.06em;fill:var(--navy);text-transform:uppercase}
-.plan-wrap .rd{font-family:var(--body);font-size:10px;fill:var(--muted)}
-.plan-wrap .door{fill:none;stroke:var(--navy);stroke-width:1}
-.plan-wrap .gap{stroke:var(--paper);stroke-width:5}
-.plan-wrap .dim{stroke:var(--gold);stroke-width:1}
-.plan-wrap .dimt{font-family:var(--display);font-stretch:90%;font-weight:600;font-size:10px;fill:var(--gold);letter-spacing:.08em}
-.panel{min-width:0}
-.panel .eyebrow{color:var(--gold)}
-.panel h2{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:750;font-stretch:112%;color:var(--navy);margin:14px 0 10px}
-.panel p{color:var(--muted);margin:0 0 22px}
-.panel dl{display:grid;grid-template-columns:1fr 1fr;margin:0 0 24px;border-top:1px solid var(--line)}
-.panel dl div{padding:12px 0;border-bottom:1px solid var(--line)}
-.panel dl div:nth-child(odd){padding-right:12px}
-.panel dl div:nth-child(even){padding-left:12px;border-left:1px solid var(--line)}
-.panel dt{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:var(--display);font-weight:600}
-.panel dd{margin:3px 0 0;font-weight:600}
-.panel .pr{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.panel .price{font-family:var(--display);font-stretch:110%;font-weight:800;font-size:2rem;color:var(--navy)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border:0;background:var(--navy);color:#fff;font-weight:600;font-size:.92rem;text-decoration:none;cursor:pointer;border-radius:999px;transition:background .25s,transform .25s}
-.btn:hover{background:#071F47;transform:translateY(-1px)}
-.btn.gold{background:var(--gold)}
-.btn.gold:hover{background:#9C7323}
-
-/* animated mode (JS + motion allowed) */
-.anim .enter{background:var(--night)}
-.anim .enter .pin{position:relative;height:100svh;overflow:hidden}
-.anim .enter .stage{display:block;position:absolute;inset:0}
-.anim .enter .facade{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:88%;width:auto;max-width:none;overflow:visible}
-.anim .enter .cap{position:absolute;left:var(--gut-l);top:calc(90px + env(safe-area-inset-top,0px));max-width:420px;color:var(--on-night)}
-.anim .enter .cap .eyebrow{color:var(--glow)}
-.anim .enter .cap h2{font-size:clamp(2rem,4.4vw,3.6rem);font-weight:300;font-stretch:118%;margin-top:14px}
-.anim .enter .cap h2 b{font-weight:800}
-.anim .enter .cap p{color:var(--on-night-muted);margin:14px 0 0}
-.anim .enter .flood{position:absolute;inset:0;background:var(--glow-hi);opacity:0}
-.anim .enter .home{position:absolute;inset:0;display:flex;align-items:center;padding-block:calc(70px + env(safe-area-inset-top,0px)) 30px;background:var(--paper);opacity:0}
-.anim .enter .home .wrap{width:100%}
-
-/* ---------- floor sections ---------- */
-.floor{position:relative;overflow:hidden;padding-block:120px}
-.fnum{position:absolute;right:-.06em;top:40px;font-family:var(--display);font-stretch:62%;font-weight:800;font-size:clamp(14rem,30vw,30rem);line-height:.8;color:transparent;-webkit-text-stroke:1.5px var(--line);pointer-events:none;user-select:none;z-index:0}
-.floor > .wrap{position:relative;z-index:1}
-.plate{display:flex;align-items:center;gap:16px;margin-bottom:22px;color:var(--gold)}
-.plate .tag{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:28px;padding:0 10px;border:1px solid currentColor;border-radius:999px;font-family:var(--display);font-stretch:80%;font-weight:700;font-size:.78rem;letter-spacing:.08em}
-.plate .rule{flex:1;height:1px;background:var(--line);max-width:240px;transform-origin:left}
-.h2{font-size:clamp(2.2rem,5vw,4.4rem);font-weight:300;font-stretch:116%;color:var(--navy)}
-.h2 b{font-weight:800}
-.lead{max-width:50ch;color:var(--muted);margin:18px 0 0;font-size:1.05rem}
-
-/* listings */
-.lhead{display:flex;flex-wrap:wrap;gap:28px 40px;align-items:end;justify-content:space-between;margin-bottom:44px}
-.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.seg{display:inline-flex;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--white)}
-.seg button{border:0;background:none;padding:9px 18px;border-radius:999px;font-weight:600;font-size:.88rem;color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
-.controls select{border:1px solid var(--line);background:var(--white);padding:11px 14px;border-radius:999px;font:500 .88rem var(--body);color:var(--ink)}
-.count{color:var(--muted);font-size:.88rem;margin-left:6px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
-.card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);border-radius:4px;min-width:0;transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .3s}
-.card:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(10,42,94,.35);border-color:#BFCADB}
-.card .pl{position:relative;aspect-ratio:16/10;max-width:100%;background:#EEF1F6;border-bottom:1px solid var(--line);overflow:hidden}
-.card .pl svg{position:absolute;inset:0;width:100%;height:100%}
-.card .pl img{width:100%;height:100%;object-fit:cover;display:block}
-.card .pl .w{fill:none;stroke:var(--navy);stroke-dasharray:1;stroke-dashoffset:0}
-.card:hover .pl .w{animation:draw 1.1s var(--ease)}
-@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-.card .tg{position:absolute;left:12px;top:12px;padding:5px 10px;border-radius:999px;background:var(--navy);color:#fff;font-family:var(--display);font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase}
-.card .tg.rent{background:var(--gold)}
-.card .fl-badge{position:absolute;right:12px;top:12px;width:32px;height:32px;border-radius:50%;background:var(--night);color:var(--glow);display:grid;place-items:center;font-family:var(--display);font-stretch:62%;font-weight:700;font-size:.95rem}
-.card .bd{padding:20px 22px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
-.card .loc{display:flex;justify-content:space-between;gap:12px;font-size:.84rem;color:var(--muted)}
-.card h3{font-size:1.15rem;font-weight:700;font-stretch:104%;color:var(--ink)}
-.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0}
-.specs div{padding:10px 0;min-width:0}
-.specs div+div{padding-left:12px;border-left:1px solid var(--line)}
-.specs dt{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:var(--display);font-weight:600}
-.specs dd{margin:2px 0 0;font-weight:600;font-size:.94rem}
-.card .ft{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
-.card .price{font-family:var(--display);font-stretch:108%;font-weight:800;font-size:1.32rem;color:var(--navy)}
-.card .price small{font-family:var(--body);font-weight:500;font-size:.78rem;color:var(--muted)}
-.enq{border:0;background:none;padding:6px 0;font-weight:600;font-size:.88rem;color:var(--navy);cursor:pointer;border-bottom:1.5px solid var(--gold)}
-.empty{grid-column:1/-1;border:1px dashed var(--line);padding:40px;text-align:center;color:var(--muted);border-radius:4px}
-
-/* floor 1: services + stairs */
-.f1{background:var(--white)}
-.svcs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:56px 0 100px;border-top:1px solid var(--line)}
-.svc{padding:28px 28px 0 0;min-width:0}
-.svc+.svc{padding-left:28px;border-left:1px solid var(--line)}
-.svc .eyebrow{color:var(--gold)}
-.svc h3{font-size:1.5rem;font-weight:700;font-stretch:110%;color:var(--navy);margin:10px 0 10px}
-.svc p{margin:0;color:var(--muted)}
-.stairs{position:relative;margin-top:40px}
-.stair{position:relative;width:min(560px,62%);margin-left:calc(var(--i) * 7.4%);padding:22px 0 26px}
-.stair::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--navy);transform-origin:left;transform:scaleX(var(--tread,1))}
-.stair::before{content:"";position:absolute;right:0;bottom:-80px;width:3px;height:80px;background:var(--navy);transform-origin:top;transform:scaleY(var(--riser,1))}
-.stair:last-child::before{display:none}
-.stair{margin-bottom:80px}
-.stair:last-child{margin-bottom:0}
-.stair .n{font-family:var(--display);font-stretch:62%;font-weight:700;color:var(--gold);font-size:1rem;letter-spacing:.06em}
-.stair h3{font-size:1.45rem;font-weight:700;font-stretch:110%;color:var(--navy);margin:6px 0 6px}
-.stair p{margin:0;color:var(--muted);max-width:44ch}
-
-/* ground: lobby */
-.lobby{background:var(--paper)}
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px}
-.board{margin-top:40px;background:var(--night);color:var(--on-night);border-radius:4px;padding:26px 28px;font-size:.95rem}
-.board .bh{display:flex;justify-content:space-between;color:var(--glow);font-family:var(--display);font-weight:600;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding-bottom:14px;border-bottom:1px solid var(--night-line)}
-.board ul{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
-.board li{break-inside:avoid;display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px dashed var(--night-line)}
-.board li span{color:var(--on-night-muted);font-size:.82rem}
-.board li.here{color:var(--glow);font-weight:600}
-.owners{margin-top:28px;padding:30px;border:1px solid var(--line);background:var(--white);border-radius:4px}
-.owners h3{font-size:1.4rem;font-weight:750;font-stretch:110%;color:var(--navy);margin:8px 0 10px}
-.owners p{color:var(--muted);margin:0 0 16px}
-.owners ul{list-style:none;margin:0 0 22px;padding:0}
-.owners li{display:grid;grid-template-columns:20px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.94rem}
-.owners li::before{content:"";width:11px;height:11px;border:1.5px solid var(--navy);margin-top:6px}
-.owners .eyebrow{color:var(--gold)}
-.desk{background:var(--white);border:1px solid var(--line);border-radius:4px;overflow:hidden;min-width:0}
-.desk .top{background:var(--navy);color:#fff;padding:26px 30px}
-.desk .top h3{font-size:1.6rem;font-weight:750;font-stretch:112%}
-.desk .top p{margin:6px 0 0;color:#B7C5DD;font-size:.92rem}
-.cinfo{padding:6px 30px}
-.crow{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;padding:15px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.crow .k{font-family:var(--display);font-weight:600;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.crow .v{font-weight:500;overflow-wrap:anywhere}
-.crow .v a{text-decoration-color:var(--gold);text-underline-offset:4px}
-.copy{margin-left:8px;border:1px solid var(--line);background:var(--white);font-weight:600;font-size:.7rem;padding:3px 8px;border-radius:999px;color:var(--navy);cursor:pointer;vertical-align:2px}
-form.enq-form{padding:24px 30px 30px;display:grid;gap:16px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.field{display:flex;flex-direction:column;gap:6px;min-width:0}
-.field label{font-family:var(--display);font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.field input,.field select,.field textarea{border:1px solid var(--line);background:var(--paper);padding:12px 14px;font:500 .98rem var(--body);color:var(--ink);border-radius:4px;width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(10,42,94,.1)}
-.field textarea{min-height:88px;resize:vertical}
-.err{margin:0;color:#B3261E;font-size:.85rem}
-.note{margin:0;color:var(--muted);font-size:.8rem}
-
-/* stilt: footer */
-footer.stilt{background:var(--night);color:var(--on-night-muted);position:relative;overflow:hidden}
-footer .slab{height:18px;background:var(--navy)}
-footer .cols{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:120px;position:relative}
-footer .cols i{border-left:10px solid #0E2A55}
-footer .cols i:first-child{border-left-width:10px}
-footer .cars{position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none}
-footer .cars svg{position:absolute;bottom:16px;height:46px;width:auto}
-footer .info{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center;padding-block:34px;border-top:1px solid var(--night-line);font-size:.86rem}
-footer .brand{color:var(--on-night)}
-footer a{color:var(--on-night)}
-
-/* directory menu */
-#dir{position:fixed;inset:0;z-index:150;background:var(--night);color:var(--on-night);overflow:auto;padding-block:calc(90px + env(safe-area-inset-top,0px)) 40px}
-#dir .wrap{max-width:900px}
-#dir .eyebrow{color:var(--glow)}
-#dir ol{list-style:none;margin:20px 0 0;padding:0}
-#dir li button{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:18px;width:100%;text-align:left;padding:18px 0;background:none;border:0;border-bottom:1px solid var(--night-line);color:inherit;cursor:pointer}
-#dir li button .d{font-family:var(--display);font-stretch:62%;font-weight:700;font-size:2.4rem;color:var(--glow);line-height:1}
-#dir li button .t{font-family:var(--display);font-stretch:112%;font-weight:600;font-size:clamp(1.3rem,3vw,2rem)}
-#dir li button .s{color:var(--on-night-muted);font-size:.88rem}
-#dir li button:hover .t{color:var(--glow)}
-#dir .close{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:var(--gut-r)}
-
-/* ---------- responsive ---------- */
-@media (max-width:1020px){
-  .roof .wrap{grid-template-columns:1fr;min-height:0;padding-top:calc(100px + env(safe-area-inset-top,0px))}
-  .roof .hero-copy{padding-bottom:10px}
-  .roof .bldg svg{max-width:380px;margin:0 auto}
-  .roof .meta{display:none}
-  .home-in{grid-template-columns:1fr;gap:22px}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .split{grid-template-columns:1fr;gap:40px}
-  .stair{width:min(560px,80%);margin-left:calc(var(--i) * 4%)}
-  .hide-md{display:none}
-}
-@media (max-width:720px){
-  .floor{padding-block:84px}
-  .grid{grid-template-columns:1fr}
-  .svcs{grid-template-columns:1fr;margin:40px 0 70px}
-  .svc,.svc+.svc{padding:22px 0;border-left:0}
-  .svc+.svc{border-top:1px solid var(--line)}
-  .stair{width:calc(100% - var(--i) * 3.2%);margin-left:calc(var(--i) * 3.2%);margin-bottom:46px}
-  .stair::before{bottom:-46px;height:46px}
-  .board ul{columns:1}
-  .row2{grid-template-columns:1fr}
-  .crow{grid-template-columns:1fr;gap:2px}
-  .cinfo,form.enq-form{padding-left:20px;padding-right:20px}
-  .desk .top{padding:22px 20px}
-  .owners{padding:24px 20px}
-  .fnum{top:24px}
-  .lift{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:none;padding:6px;flex-direction:column-reverse}
-  .lift .fls{display:none;flex-direction:column;gap:8px;padding-bottom:4px}
-  .lift.open .fls{display:flex}
-  .lift .readout{display:none}
-  .lift .toggle{display:flex;flex-direction:column;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;border:0;background:#020B1D;color:var(--glow);font-family:var(--display);font-stretch:62%;font-weight:700;line-height:1;cursor:pointer}
-  .lift .toggle .arr{font-size:.55rem}
-  .lift .toggle .d{font-size:1.35rem}
-  .lift button.fl .tip{display:none}
-  .hdr-call span{display:none}
-  header.top .brand .wm small{display:none}
-  .anim .enter .facade{height:70%}
-  .anim .enter .home{align-items:flex-start;overflow:hidden}
-  .anim .enter .panel p{display:none}
-  .anim .enter .panel h2{font-size:1.5rem;margin:8px 0 10px}
-  .anim .enter .panel dl{margin-bottom:14px}
-  .anim .enter .panel dl div{padding:8px 0}
-  .anim .enter .panel .price{font-size:1.5rem}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-</style>
+<title>MV Homes · South Delhi builder floors, flats and plots</title>
+<meta name="description" content="Buy, sell and rent builder floors, flats and plots in Malviya Nagar, Saket, Hauz Khas and across South Delhi with MV Homes (MV Properties, Regd.).">
+<meta property="og:title" content="MV Homes · South Delhi builder floors, flats and plots"><meta property="og:description" content="Buy, sell and rent builder floors, flats and plots in Malviya Nagar, Saket, Hauz Khas and across South Delhi with MV Homes (MV Properties, Regd.)."><meta property="og:type" content="website">
+<meta name="theme-color" content="#06152F">
 <link rel="icon" href="logo-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-
-
+<body data-page="home">
 <div id="doors" class="shut" aria-hidden="true">
-  <div class="indicator"><span class="arr" id="dArr">▼</span><span id="dDigit">R</span><small id="dName">MV Homes</small></div>
+  <div class="indicator"><span id="dArr">▼</span><span id="dDigit">·</span><small id="dName">MV Homes</small></div>
   <div class="door l"><svg viewBox="585 90 368 812"><polygon fill="#E7ECF5" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/></svg></div>
   <div class="door r"><svg viewBox="967 90 368 812"><polygon fill="#E7ECF5" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/></svg></div>
 </div>
-<script>
-/* opens the lift doors on load without waiting for any library */
-(function(){var d=document.getElementById('doors');var m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(m){d.classList.remove('shut');return}setTimeout(function(){d.classList.remove('shut');document.documentElement.classList.add('doors-open')},950)})();
-</script>
+<script>(function(){var d=document.getElementById('doors');if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.remove('shut');return}setTimeout(function(){d.classList.remove('shut')},950)})();</script>
+<noscript><style>#doors{display:none}</style></noscript>
 
-<header class="top" id="hdr">
-  <div class="wrap">
-    <a class="brand" href="#roof" data-go="R" aria-label="MV Homes, top">
-      <svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B98A2E"/></svg>
-      <span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span>
-    </a>
-    <div class="hdr-right">
-      <a class="pill fill hdr-call" href="tel:+919911354620"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>99113 54620</span></a>
-      <button class="pill" id="dirBtn" aria-expanded="false" aria-controls="dir"><span class="bars"><i></i><i></i></span>Directory</button>
-    </div>
+<header class="top" id="hdr"><div class="wrap">
+  <a class="brand" href="index.html" aria-label="MV Homes home"><svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B98A2E"/></svg><span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span></a>
+  <nav class="tabs" id="tabs" aria-label="Main"></nav>
+  <div class="hdr-actions">
+    <a class="pill fill hdr-call" href="tel:+919911354620"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>99113 54620</span></a>
+    <button class="pill" data-enquire="">Enquire</button>
+    <button class="pill menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span class="bars"><i></i><i></i></span>Menu</button>
   </div>
-</header>
+</div></header>
 
-<nav class="lift" id="lift" aria-label="Floors">
-  <div class="readout" aria-live="polite"><span class="arr" id="lArr">&nbsp;</span><span class="d num" id="lDigit">R</span></div>
-  <div class="fls" id="fls"></div>
-  <button class="toggle" id="liftToggle" aria-expanded="false" aria-label="Choose a floor"><span class="arr" id="tArr">&nbsp;</span><span class="d" id="tDigit">R</span></button>
-</nav>
-
-<div id="dir" hidden>
-  <div class="wrap">
-    <button class="pill close" id="dirClose">Close</button>
-    <div class="eyebrow">Building directory</div>
-    <ol id="dirList"></ol>
-  </div>
-</div>
+<div id="menu" hidden><div class="wrap"><button class="pill close" id="menuClose">Close</button><div class="eyebrow" style="color:var(--glow);margin-bottom:10px">Building directory</div><ol id="menuList"></ol>
+<div class="mfoot"><a class="btn gold" href="tel:+919911354620">Call 99113 54620</a><a class="btn wa" href="https://wa.me/919911354620?text=Hello%20MV%20Homes%2C%20I%20found%20you%20on%20your%20website." target="_blank" rel="noopener">WhatsApp</a></div></div></div>
 
 <main>
-<!-- ROOF -->
-<section class="roof" id="roof" data-floor="R">
+
+<nav class="lift" id="lift" aria-label="Floors"><div class="readout" aria-live="polite"><span class="arr" id="lArr">&nbsp;</span><span class="d num" id="lDigit">R</span></div><div class="fls" id="fls"></div><button class="toggle" id="liftToggle" aria-expanded="false" aria-label="Choose a floor"><span class="arr" id="tArr">&nbsp;</span><span class="d" id="tDigit">R</span></button></nav>
+<section class="roof" id="roof" data-dark-top>
   <div class="wrap">
     <div class="hero-copy">
       <div class="eyebrow">Malviya Nagar · New Delhi</div>
-      <h1><span class="ln"><span>South Delhi,</span></span><span class="ln"><span><b>floor by</b></span></span><span class="ln"><span><em>floor.</em></span></span></h1>
+      <h1 class="h-xl"><span class="ln"><span>South Delhi,</span></span><span class="ln"><span><b>floor by</b></span></span><span class="ln"><span><em>floor.</em></span></span></h1>
       <p class="lede">Builder floors, flats and plots to buy, sell or rent. We know which block gets the park view, which floor has roof rights, and how to get a registry done without surprises.</p>
-      <div class="ctas">
-        <button class="godown" data-go="3"><span class="b">▼</span>Take the lift down</button>
-        <a class="callbtn" href="tel:+919911354620"><span class="ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span class="num">+91 99113 54620</span></a>
-      </div>
+      <div class="ctas"><button class="godown" data-lift="3"><span class="b">▼</span>Take the lift down</button><a class="btn line" href="buy.html" style="color:var(--on-night);box-shadow:inset 0 0 0 1.5px var(--night-line)">Browse homes</a></div>
     </div>
     <div class="bldg"><svg viewBox="0 0 400 560" id="heroFacade" aria-hidden="true"></svg></div>
   </div>
   <div class="ground"></div>
-  <div class="meta"><span>Open daily 9 am – 9 pm</span><span>Sale · Purchase · Rent</span></div>
 </section>
-
-<!-- FLOOR 3 : step inside -->
-<section class="enter" id="f3" data-floor="3">
+<section class="enter" id="f3">
   <div class="pin">
-    <div class="stage" aria-hidden="true">
-      <svg viewBox="0 0 400 560" class="facade" id="enterFacade"></svg>
-      <div class="cap">
-        <div class="eyebrow">Floor 3 · Featured home</div>
-        <h2>That lit window is <b>for sale.</b></h2>
-        <p>Keep scrolling to step inside.</p>
-      </div>
-      <div class="flood"></div>
-    </div>
-    <div class="home">
-      <div class="wrap home-in">
-        <div class="plan-wrap"><svg viewBox="-30 -40 660 470" id="featPlan" role="img" aria-label="Floor plan of a 3 BHK builder floor"></svg></div>
-        <div class="panel">
-          <div class="eyebrow">Floor 3 · Featured home</div>
-          <h2>Park-facing 3 BHK, Malviya Nagar</h2>
-          <p>Third floor with roof rights in a new stilt-plus-four building. Morning sun on the living room, lift, and one covered car park.</p>
-          <dl>
-            <div><dt>Plot</dt><dd class="num">200 sq. yd.</dd></div>
-            <div><dt>Floor</dt><dd>Third + roof</dd></div>
-            <div><dt>Facing</dt><dd>East, park</dd></div>
-            <div><dt>Parking</dt><dd>1 covered</dd></div>
-          </dl>
-          <div class="pr"><span class="price num">₹3.10 Cr</span><button class="btn" data-enquire="feat">Enquire about this home</button></div>
-        </div>
-      </div>
-    </div>
+    <div class="stage" aria-hidden="true"><svg viewBox="0 0 400 560" class="facade" id="enterFacade"></svg>
+      <div class="cap"><div class="eyebrow" style="color:var(--glow)">Floor 3 · Featured home</div><h2>That lit window is <b>for sale.</b></h2><p>Keep scrolling to step inside.</p></div><div class="flood"></div></div>
+    <div class="home"><div class="wrap home-in">
+      <div class="plan-wrap"><svg viewBox="-30 -40 660 470" id="featPlan" role="img" aria-label="Floor plan of a 3 BHK builder floor"></svg></div>
+      <div class="panel"><div class="eyebrow">Floor 3 · Featured home</div><h2>Park-facing 3 BHK, Malviya Nagar</h2><p>Third floor with roof rights in a new stilt-plus-four building. Morning sun on the living room, lift, and one covered car park.</p>
+        <dl><div><dt>Plot</dt><dd class="num">200 sq. yd.</dd></div><div><dt>Floor</dt><dd>Third + roof</dd></div><div><dt>Facing</dt><dd>East, park</dd></div><div><dt>Parking</dt><dd>1 covered</dd></div></dl>
+        <div class="pr"><span class="price num">₹3.10 Cr</span><button class="btn" data-enquire="feat">Enquire about this home</button></div></div>
+    </div></div>
   </div>
 </section>
+<section class="sec" id="f2"><div class="fnum" aria-hidden="true">02</div><div class="wrap">
+  <div class="headrow"><div><div class="plate"><span class="tag">FL 2</span><span class="rule"></span></div><h2 class="h-lg rv">Homes on <b>our books</b></h2><p class="lead rv">Visited and measured by our team. Plot size, floor and facing are as found, not as advertised.</p></div><a class="arrow-link rv" href="buy.html">All homes for sale</a></div>
+  <div class="grid3" id="homeCards"></div>
+</div></section>
+<section class="sec white" id="f1"><div class="fnum" aria-hidden="true">01</div><div class="wrap">
+  <div class="plate"><span class="tag">FL 1</span><span class="rule"></span></div>
+  <div class="headrow"><h2 class="h-lg rv">What are you <b>looking for?</b></h2><p class="lead rv" style="margin-top:0">Each door opens onto a different part of the building.</p></div>
+  <div class="cats">
+    <a class="cat" href="buy.html"><div class="img"><img src="https://images.unsplash.com/photo-1758448755952-42b404bc6f39?auto=format&fit=crop&w=1800&q=78" alt="Living room of a builder floor" loading="lazy" decoding="async"></div><div class="lbl"><div class="eyebrow">Buy</div><h3>Homes for sale</h3><p>Builder floors, DDA flats and plots with clear title.</p></div><div class="dr"><i></i><i></i></div></a>
+    <a class="cat" href="rent.html"><div class="img"><img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1800&q=78" alt="Bedroom" loading="lazy" decoding="async"></div><div class="lbl"><div class="eyebrow">Rent</div><h3>Homes to rent</h3><p>Furnished and unfurnished floors for families.</p></div><div class="dr"><i></i><i></i></div></a>
+    <a class="cat" href="sell.html"><div class="img"><img src="https://images.unsplash.com/photo-1741156386380-0236c72eb6f9?auto=format&fit=crop&w=1800&q=78" alt="House keys at the front door" loading="lazy" decoding="async"></div><div class="lbl"><div class="eyebrow">Sell</div><h3>Sell or let out</h3><p>Free visit, honest price, verified buyers.</p></div><div class="dr"><i></i><i></i></div></a>
+    <a class="cat" href="localities.html"><div class="img"><img src="https://images.unsplash.com/photo-1632426237957-5ea14aae7100?auto=format&fit=crop&w=1800&q=78" alt="Qutub Minar, South Delhi" loading="lazy" decoding="async"></div><div class="lbl"><div class="eyebrow">Explore</div><h3>Localities</h3><p>Ten colonies around our Malviya Nagar office.</p></div><div class="dr"><i></i><i></i></div></a>
+  </div>
+</div></section>
+<section class="sec" id="fg"><div class="fnum" aria-hidden="true">G</div><div class="wrap why">
+  <div class="rv"><div class="img"><img src="https://images.unsplash.com/photo-1757524492552-d47a66a2b63e?auto=format&fit=crop&w=1800&q=78" alt="Builder floor at dusk" loading="lazy" decoding="async"></div></div>
+  <div><div class="plate"><span class="tag">GF</span><span class="rule"></span></div><h2 class="h-lg rv">Why families <b>call us first</b></h2>
+    <ol class="rv"><li><div><h4>We live and work here</h4><p>Our office is at Gol Chakkar, Malviya Nagar. We walk these lanes every day.</p></div></li>
+    <li><div><h4>Paperwork before payment</h4><p>Sale deeds, MCD tax and conversion status are checked before you pay any token.</p></div></li>
+    <li><div><h4>One person, start to keys</h4><p>The same person handles your visits, negotiation, agreement and registry.</p></div></li>
+    <li><div><h4>Open every day</h4><p>9 am to 9 pm, including Sundays, when most families want to see homes.</p></div></li></ol>
+    <div class="form-actions" style="margin-top:24px"><a class="btn" href="about.html">About MV Homes</a><a class="arrow-link" href="process.html">How a deal moves</a></div></div>
+</div></section>
+<span id="fs"></span>
 
-<!-- FLOOR 2 : listings -->
-<section class="floor" id="f2" data-floor="2">
-  <div class="fnum" aria-hidden="true">02</div>
-  <div class="wrap">
-    <div class="lhead">
-      <div>
-        <div class="plate"><span class="tag">FL 2</span><span class="rule"></span></div>
-        <h2 class="h2 rv">Homes on <b>our books</b></h2>
-        <p class="lead rv">Every home here has been visited by our team. Plot size, floor and facing are as measured, not as advertised.</p>
-      </div>
-      <div class="controls rv">
-        <div class="seg" role="group" aria-label="Purpose"><button type="button" data-p="sale" aria-pressed="true">Buy</button><button type="button" data-p="rent" aria-pressed="false">Rent</button></div>
-        <select id="fLoc" aria-label="Locality"></select>
-        <select id="fBhk" aria-label="Size"><option value="">Any size</option><option value="2">2 BHK</option><option value="3">3 BHK</option><option value="4">4 BHK</option></select>
-        <span class="count num" id="count"></span>
-      </div>
-    </div>
-    <div class="grid" id="grid"></div>
-  </div>
-</section>
-
-<!-- FLOOR 1 : services + process -->
-<section class="floor f1" id="f1" data-floor="1">
-  <div class="fnum" aria-hidden="true">01</div>
-  <div class="wrap">
-    <div class="plate"><span class="tag">FL 1</span><span class="rule"></span></div>
-    <h2 class="h2 rv">Sale, purchase, rent. <b>Start to keys.</b></h2>
-    <div class="svcs">
-      <div class="svc rv"><div class="eyebrow">Sale</div><h3>Sell at the right price</h3><p>We price your floor against recent deals in the same block, take it to buyers we already know, and handle negotiation and token.</p></div>
-      <div class="svc rv"><div class="eyebrow">Purchase</div><h3>Buy with clear title</h3><p>Shortlists that match your budget and floor preference, accompanied site visits, and a title check before you pay anything.</p></div>
-      <div class="svc rv"><div class="eyebrow">Rent</div><h3>Let out or lease</h3><p>Verified tenants for owners and well-kept floors for families. Rent agreement, police verification and handover done properly.</p></div>
-    </div>
-    <div class="eyebrow" style="color:var(--gold)">Buying through MV Homes</div>
-    <h3 class="rv" style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;font-stretch:112%;color:var(--navy);margin-top:10px">Six steps down to the registry</h3>
-    <div class="stairs" id="stairs">
-      <div class="stair" style="--i:0"><div class="n">STEP 1</div><h3>Requirement</h3><p>Budget, colonies, floor, parking and possession date, written down in one conversation.</p></div>
-      <div class="stair" style="--i:1"><div class="n">STEP 2</div><h3>Shortlist</h3><p>Only homes that fit. Plot size, floor, facing and building age shared before you travel.</p></div>
-      <div class="stair" style="--i:2"><div class="n">STEP 3</div><h3>Site visits</h3><p>We go with you and point out what to check: seepage, lift make, stilt height, sunlight.</p></div>
-      <div class="stair" style="--i:3"><div class="n">STEP 4</div><h3>Title check</h3><p>Chain of sale deeds, MCD property tax and conversion status reviewed before any token.</p></div>
-      <div class="stair" style="--i:4"><div class="n">STEP 5</div><h3>Token &amp; agreement</h3><p>Negotiation, token receipt and an Agreement to Sell with clear payment dates.</p></div>
-      <div class="stair" style="--i:5"><div class="n">STEP 6</div><h3>Registry &amp; keys</h3><p>Stamp duty, Sub-Registrar appointment, mutation, and the keys in your hand.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- GROUND : lobby -->
-<section class="floor lobby" id="fg" data-floor="G">
-  <div class="fnum" aria-hidden="true">G</div>
-  <div class="wrap split">
-    <div>
-      <div class="plate"><span class="tag">GF</span><span class="rule"></span></div>
-      <h2 class="h2 rv">The <b>lobby.</b></h2>
-      <p class="lead rv">Walk in at F 2/1, next to Gol Chakkar, or call ahead and we will have a shortlist ready when you arrive.</p>
-      <div class="board rv">
-        <div class="bh"><span>Colonies we cover</span><span class="hide-md">South Delhi</span></div>
-        <ul>
-          <li class="here">Malviya Nagar <span>You are here</span></li>
-          <li>Saket <span>Floors</span></li>
-          <li>Shivalik <span>Floors</span></li>
-          <li>Sheikh Sarai <span>DDA flats</span></li>
-          <li>Hauz Khas <span>Floors</span></li>
-          <li>Sarvodaya Enclave <span>Floors</span></li>
-          <li>Geetanjali Enclave <span>Floors</span></li>
-          <li>Panchsheel Park <span>Floors, plots</span></li>
-          <li>Greater Kailash <span>Floors</span></li>
-          <li>Navjeevan Vihar <span>Floors, plots</span></li>
-        </ul>
-      </div>
-      <div class="owners rv" id="owners">
-        <div class="eyebrow">For owners</div>
-        <h3>Selling or letting out your floor?</h3>
-        <p>Share the plot size, floor and expected price. We visit, photograph and give you an honest market view within a day. Keep these handy:</p>
-        <ul>
-          <li>Sale deed or registry copy</li>
-          <li>Latest MCD property tax receipt</li>
-          <li>Electricity and water bills</li>
-          <li>Completion or occupancy certificate, if issued</li>
-        </ul>
-        <button class="btn gold" data-purpose="Sell / Rent out my property">List my property</button>
-      </div>
-    </div>
-    <div class="desk rv" id="contact">
-      <div class="top"><h3>Reception</h3><p>Open every day, 9:00 am to 9:00 pm</p></div>
-      <div class="cinfo">
-        <div class="crow"><div class="k">Phone</div><div class="v num"><a href="tel:+919911354620">+91 99113 54620</a><button class="copy" data-copy="+91 99113 54620">Copy</button></div></div>
-        <div class="crow"><div class="k">Email</div><div class="v"><a href="mailto:mvproperties2000@gmail.com">mvproperties2000@gmail.com</a><button class="copy" data-copy="mvproperties2000@gmail.com">Copy</button></div></div>
-        <div class="crow"><div class="k">Office</div><div class="v">F 2/1, Ground Floor, F Block, Malviya Nagar, near Gol Chakkar Shiv Mandir, New Delhi 110017 · <a href="https://www.google.com/maps/search/?api=1&amp;query=F+2%2F1+F+Block+Malviya+Nagar+New+Delhi+110017" target="_blank" rel="noopener">Directions</a></div></div>
-      </div>
-      <form class="enq-form" id="enq" novalidate>
-        <div class="row2">
-          <div class="field"><label for="eName">Name</label><input id="eName" autocomplete="name" placeholder="Your name"></div>
-          <div class="field"><label for="ePhone">Phone</label><input id="ePhone" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile"></div>
-        </div>
-        <div class="row2">
-          <div class="field"><label for="ePurpose">I want to</label><select id="ePurpose"><option>Buy a property</option><option>Rent a property</option><option>Sell / Rent out my property</option></select></div>
-          <div class="field"><label for="eBudget">Budget</label><input id="eBudget" placeholder="₹2.5 Cr or ₹60,000/month"></div>
-        </div>
-        <div class="field"><label for="eMsg">Message</label><textarea id="eMsg" placeholder="Colony, floor, BHK, parking"></textarea></div>
-        <p class="err" id="eErr" hidden></p>
-        <a class="btn" id="eSend" href="https://wa.me/919911354620" target="_blank" rel="noopener">Send on WhatsApp</a>
-        <p class="note">Opens WhatsApp with your details filled in, addressed to our office.</p>
-      </form>
-    </div>
-  </div>
-</section>
+<section class="sec tight"><div class="wrap"><div class="help rv"><div><h3>Need help choosing? <b>Talk to us.</b></h3><p>Tell us your budget and colonies. We will send a shortlist on WhatsApp the same day.</p></div><div class="acts"><a class="btn wa" href="https://wa.me/919911354620?text=Hello%20MV%20Homes%2C%20I%20found%20you%20on%20your%20website." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3Z"/></svg>WhatsApp</a><a class="btn gold" href="tel:+919911354620"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call 99113 54620</a><button class="btn line" style="color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)" data-enquire="">Send enquiry</button></div></div></div></section>
 </main>
 
-<!-- STILT : footer -->
-<footer class="stilt" id="fs" data-floor="S">
+<footer class="stilt">
   <div class="slab"></div>
-  <div class="wrap" style="position:relative">
-    <div class="cols" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="cars" aria-hidden="true">
-      <svg viewBox="0 0 120 46" style="left:12%"><path d="M6 34h108v-8c0-4-3-6-7-7l-14-3-12-10H40L26 16 12 18c-4 1-6 3-6 7z" fill="none" stroke="#3E5A8A" stroke-width="2"/><circle cx="30" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/><circle cx="92" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/></svg>
-      <svg viewBox="0 0 120 46" style="left:52%"><path d="M6 34h108v-8c0-4-3-6-7-7l-14-3-12-10H40L26 16 12 18c-4 1-6 3-6 7z" fill="none" stroke="#3E5A8A" stroke-width="2"/><circle cx="30" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/><circle cx="92" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/></svg>
+  <div class="park" aria-hidden="true"><div class="cols"><i></i><i></i><i></i><i></i><i></i></div>
+    <svg viewBox="0 0 120 46" style="left:14%"><path d="M6 34h108v-8c0-4-3-6-7-7l-14-3-12-10H40L26 16 12 18c-4 1-6 3-6 7z" fill="none" stroke="#3E5A8A" stroke-width="2"/><circle cx="30" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/><circle cx="92" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/></svg>
+    <svg viewBox="0 0 120 46" style="left:54%"><path d="M6 34h108v-8c0-4-3-6-7-7l-14-3-12-10H40L26 16 12 18c-4 1-6 3-6 7z" fill="none" stroke="#3E5A8A" stroke-width="2"/><circle cx="30" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/><circle cx="92" cy="36" r="7" fill="#06152F" stroke="#3E5A8A" stroke-width="2"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a class="brand" href="index.html" aria-label="MV Homes home"><svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B98A2E"/></svg><span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span></a><p>Sale, purchase and rental of builder floors, flats and plots in Malviya Nagar and across South Delhi.</p></div>
+      <div><h4>Properties</h4><ul><li><a href="buy.html">Homes for sale</a></li><li><a href="rent.html">Homes to rent</a></li><li><a href="sell.html">Sell or let out</a></li><li><a href="localities.html">Localities</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div><h4>MV Homes</h4><ul><li><a href="about.html">About us</a></li><li><a href="process.html">How we work</a></li><li><a href="guide.html">Buyer’s guide & EMI</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Office</h4><ul><li>F 2/1, Ground Floor, F Block, Malviya Nagar, near Gol Chakkar Shiv Mandir, New Delhi 110017</li><li><a href="tel:+919911354620">+91 99113 54620</a></li><li><a href="mailto:mvproperties2000@gmail.com">mvproperties2000@gmail.com</a></li><li>Open daily, 9 am – 9 pm</li></ul></div>
     </div>
-    <div class="info">
-      <a class="brand" href="#roof" data-go="R" aria-label="MV Homes, top">
-        <svg viewBox="575 90 770 812" aria-hidden="true"><polygon fill="currentColor" points="585,97 832,97 953,410 953,893 760,348 760,893 585,893"/><polygon fill="currentColor" points="967,97 1117,577 1266,97 1335,97 1335,437 1200,893 1031,893 967,665"/><rect x="953" y="97" width="14" height="796" fill="#B98A2E"/></svg>
-        <span class="wm">MVHOMES<small>MV PROPERTIES · REGD.</small></span>
-      </a>
-      <span>F 2/1, F Block, Malviya Nagar, New Delhi 110017</span>
-      <span><a href="tel:+919911354620" class="num">+91 99113 54620</a> · <a href="https://www.mvpropertiess.com" target="_blank" rel="noopener">mvpropertiess.com</a></span>
-      <span>© <span id="yr">2026</span> MV Properties</span>
-    </div>
+    <div class="legal"><span>© <span class="yr">2026</span> MV Properties (Regd.). All rights reserved.</span><span>Listings and prices are indicative and subject to availability.</span></div>
   </div>
 </footer>
 
+<div class="wa-float" id="waFloat"></div>
+
+<div id="enquiry" hidden role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+  <div class="scrim"></div>
+  <div class="sheet"><div class="sh-top"><button class="x" id="enqClose" aria-label="Close">×</button><div class="eyebrow" style="color:var(--glow)">Enquiry</div><h3 id="enqTitle" style="margin-top:8px">Tell us what you need</h3><p>We call back within working hours. Or send the same on WhatsApp.</p></div><div class="sh-body" id="enqBody"></div></div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-(function(){
-var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-var hasGsap=!!(window.gsap&&window.ScrollTrigger);
-var animate=hasGsap&&!reduce;
-if(animate){document.documentElement.classList.add('anim');gsap.registerPlugin(ScrollTrigger)}
-
-/* ---------- floors ---------- */
-var FLOORS=[
-  {k:'R',id:'roof',name:'Roof',sub:'Welcome'},
-  {k:'3',id:'f3',name:'Featured home',sub:'Step inside a home for sale'},
-  {k:'2',id:'f2',name:'Homes on our books',sub:'Buy or rent, filter by colony'},
-  {k:'1',id:'f1',name:'Services & process',sub:'Sale, purchase, rent, six steps'},
-  {k:'G',id:'fg',name:'Lobby & reception',sub:'Colonies, owners, contact'},
-  {k:'S',id:'fs',name:'Stilt',sub:'Parking and the fine print'}
-];
-var ORDER=FLOORS.map(function(f){return f.k});
-$('#fls').innerHTML=FLOORS.map(function(f){return '<button class="fl" data-go="'+f.k+'" aria-label="'+f.name+'">'+f.k+'<span class="tip">'+f.name+'</span></button>'}).join('');
-$('#dirList').innerHTML=FLOORS.map(function(f){return '<li><button data-go="'+f.k+'"><span class="d">'+f.k+'</span><span><span class="t">'+f.name+'</span><br><span class="s">'+f.sub+'</span></span><span class="s">Go ›</span></button></li>'}).join('');
-
-/* ---------- facade drawing (stilt + 4 floors) ---------- */
-function facade(onNight){
-  var N=onNight?'#C7D2E6':'#0A2A5E', s='', x0=40,w=300,base=540,stilt=70,fh=100;
-  s+='<line x1="-400" y1="'+base+'" x2="800" y2="'+base+'" stroke="'+N+'" stroke-opacity=".35" stroke-width="1.5"/>';
-  for(var i=0;i<4;i++)s+='<rect x="'+(x0+i*96)+'" y="'+(base-stilt)+'" width="12" height="'+stilt+'" fill="'+N+'" fill-opacity=".85"/>';
-  for(var c=0;c<2;c++){var cx=x0+28+c*96;s+='<path d="M'+cx+' '+(base-8)+'h48v-8c0-3-2-4-5-5l-6-1-6-5h-16l-7 5-6 1c-2 1-2 2-2 4z" fill="none" stroke="'+N+'" stroke-width="1.2"/>'}
-  for(var f=0;f<4;f++){
-    var y=base-stilt-(f+1)*fh;
-    s+='<rect x="'+x0+'" y="'+y+'" width="'+w+'" height="'+fh+'" fill="'+(onNight?'#0A1D40':'#FFFFFF')+'" stroke="'+N+'" stroke-width="2"/>';
-    s+='<rect class="win" data-f="'+f+'" x="'+(x0+20)+'" y="'+(y+18)+'" width="110" height="56"/>';
-    s+='<line x1="'+(x0+75)+'" y1="'+(y+18)+'" x2="'+(x0+75)+'" y2="'+(y+74)+'" stroke="'+N+'" stroke-width="1"/>';
-    s+='<rect x="'+(x0+20)+'" y="'+(y+18)+'" width="110" height="56" fill="none" stroke="'+N+'" stroke-width="1.3"/>';
-    s+='<rect class="win" data-f="'+f+'" x="'+(x0+150)+'" y="'+(y+18)+'" width="56" height="56"/><rect x="'+(x0+150)+'" y="'+(y+18)+'" width="56" height="56" fill="none" stroke="'+N+'" stroke-width="1.3"/>';
-    s+='<rect class="win" data-f="'+f+'" x="'+(x0+222)+'" y="'+(y+12)+'" width="62" height="70"/><rect x="'+(x0+222)+'" y="'+(y+12)+'" width="62" height="70" fill="none" stroke="'+N+'" stroke-width="1.3"/>';
-    s+='<rect x="'+(x0+10)+'" y="'+(y+fh-20)+'" width="130" height="20" fill="'+(onNight?'#0A1D40':'#FFFFFF')+'" stroke="'+N+'" stroke-width="1.4"/>';
-    for(var k=1;k<16;k++)s+='<line x1="'+(x0+10+k*8.1)+'" y1="'+(y+fh-20)+'" x2="'+(x0+10+k*8.1)+'" y2="'+(y+fh)+'" stroke="'+N+'" stroke-width=".7"/>';
-  }
-  var top=base-stilt-4*fh;
-  s+='<rect x="'+(x0-6)+'" y="'+(top-10)+'" width="'+(w+12)+'" height="10" fill="'+N+'"/>';
-  s+='<rect x="'+(x0+214)+'" y="'+(top-56)+'" width="80" height="46" fill="'+(onNight?'#0A1D40':'#FFFFFF')+'" stroke="'+N+'" stroke-width="2"/><rect class="win" data-f="4" x="'+(x0+236)+'" y="'+(top-42)+'" width="22" height="32"/><rect x="'+(x0+236)+'" y="'+(top-42)+'" width="22" height="32" fill="none" stroke="'+N+'" stroke-width="1.2"/>';
-  s+='<rect x="'+(x0+w+14)+'" y="'+(top-56)+'" width="2.5" height="'+(base-top+56)+'" fill="#B98A2E"/>';
-  return s;
-}
-$('#heroFacade').innerHTML=facade(true);
-$('#enterFacade').innerHTML=facade(true);
-/* featured window (3rd floor, left) stays lit in the enter scene */
-var fw=$$('#enterFacade .win');fw.forEach(function(w,i){if(Math.random()<.55||w.getAttribute('data-f')==='3')w.classList.add('on')});
-
-/* lights come on in the hero, ground floor first */
-(function(){
-  var wins=$$('#heroFacade .win'), skip=[2,7];
-  var go=function(){wins.forEach(function(w,i){if(skip.indexOf(i)>-1)return;setTimeout(function(){w.classList.add('on')},reduce?0:i*110+Math.random()*160)})};
-  setTimeout(go,reduce?0:1500);
-})();
-
-/* ---------- featured floor plan (600 x 400 units, ~12.4 units per foot) ---------- */
-(function(){
-  var P=function(x,y,w,h){return 'M'+x+' '+y+'H'+(x+w)+'V'+(y+h)+'H'+x+'Z'};
-  var rooms=[
-    ['Master bedroom',"16' × 14'6\"",20,20,200,180],
-    ['Bedroom 2',"16' × 14'6\"",20,200,200,180],
-    ['Living',"18' × 17'",220,20,220,210],
-    ['Dining',"13' × 12'",220,230,160,150],
-    ['Kitchen',"8' × 12'",380,230,100,150],
-    ['Bedroom 3',"11' × 13'",440,20,140,160],
-    ['Toilet','',440,180,70,80],['Toilet','',510,180,70,80],
-    ['Lift · stair','',480,260,100,120]
-  ];
-  var s='<g class="walls">';
-  s+='<path class="wall ow" pathLength="1" d="'+P(20,20,560,360)+'"/>';
-  rooms.forEach(function(r){s+='<path class="wall iw" pathLength="1" d="'+P(r[2],r[3],r[4],r[5])+'"/>'});
-  s+='</g><g class="furnish">';
-  /* doors: gaps + swings */
-  [[180,200,'h'],[240,230,'h'],[420,180,'v2'],[460,260,'h2'],[220,120,'v']].forEach(function(d){
-    if(d[2]==='h'){s+='<line class="gap" x1="'+d[0]+'" y1="'+d[1]+'" x2="'+(d[0]+30)+'" y2="'+d[1]+'"/><path class="door" d="M'+d[0]+' '+d[1]+' v-30 a30 30 0 0 1 30 30"/>'}
-    else if(d[2]==='v'){s+='<line class="gap" x1="'+d[0]+'" y1="'+d[1]+'" x2="'+d[0]+'" y2="'+(d[1]+30)+'"/><path class="door" d="M'+d[0]+' '+d[1]+' h-30 a30 30 0 0 0 30 30"/>'}
-    else if(d[2]==='v2'){s+='<line class="gap" x1="440" y1="100" x2="440" y2="128"/><path class="door" d="M440 100 h-28 a28 28 0 0 0 28 28"/>'}
-    else {s+='<line class="gap" x1="440" y1="300" x2="440" y2="330"/>'}
-  });
-  /* furniture */
-  s+='<path class="furn" d="'+P(60,50,90,110)+P(64,54,38,22)+P(108,54,38,22)+'"/>';
-  s+='<path class="furn" d="'+P(60,240,80,105)+P(64,244,72,22)+'"/>';
-  s+='<path class="furn" d="'+P(470,60,80,90)+P(474,64,72,20)+'"/>';
-  s+='<path class="furn" d="M250 60 h40 v110 h-40z M290 60 h110 v32 h-110z"/><path class="furn" d="'+P(320,120,70,50)+'"/>';
-  s+='<circle class="furn" cx="300" cy="305" r="34"/>';
-  [[300,262],[300,348],[257,305],[343,305]].forEach(function(c){s+='<circle class="furn" cx="'+c[0]+'" cy="'+c[1]+'" r="7"/>'});
-  s+='<path class="furn" d="M390 240 h80 v24 h-56 v104 h-24z"/>';
-  s+='<path class="furn" d="M500 280 h60 v80 h-60z M500 280 l60 80 M560 280 l-60 80"/>';
-  s+='</g><g class="labels">';
-  rooms.forEach(function(r){
-    var cx=r[2]+r[4]/2, cy=r[3]+r[5]/2;
-    if(r[0]==='Master bedroom'||r[0]==='Bedroom 2'||r[0]==='Bedroom 3')cy=r[3]+r[5]-26;
-    if(r[0]==='Living')cy=r[3]+r[5]-34; if(r[0]==='Dining')cy=r[3]+20; if(r[0]==='Lift · stair')cy=r[3]+18;
-    if(r[0]==='Kitchen')cy=r[3]+r[5]-26;
-    s+='<text class="rl" x="'+cx+'" y="'+cy+'" text-anchor="middle">'+r[0]+'</text>';
-    if(r[1])s+='<text class="rd" x="'+cx+'" y="'+(cy+14)+'" text-anchor="middle">'+r[1]+'</text>';
-  });
-  /* park side + dimension line */
-  s+='<line class="dim" x1="20" y1="-14" x2="580" y2="-14"/><line class="dim" x1="20" y1="-20" x2="20" y2="-8"/><line class="dim" x1="580" y1="-20" x2="580" y2="-8"/>';
-  s+='<rect x="262" y="-23" width="76" height="16" fill="#F6F7FA"/><text class="dimt" x="300" y="-11" text-anchor="middle">45 FT</text>';
-  s+='<text class="dimt" x="20" y="-28">PARK SIDE · EAST ↑</text>';
-  s+='<line class="dim" x1="600" y1="20" x2="600" y2="380"/><line class="dim" x1="594" y1="20" x2="606" y2="20"/><line class="dim" x1="594" y1="380" x2="606" y2="380"/>';
-  s+='<text class="dimt" x="612" y="204" transform="rotate(90 612 204)" text-anchor="middle">40 FT</text>';
-  s+='</g>';
-  $('#featPlan').innerHTML=s;
-})();
-
-/* ---------- listings ---------- */
-/* Edit this array to update the site. Add  photo:"images/x.jpg"  to show a photo instead of the plan. */
-var LISTINGS=[
- {id:1,p:'sale',loc:'Malviya Nagar',title:'Park-facing 3 BHK builder floor',bhk:3,plot:'200 sq. yd.',floor:'Second',facing:'East',price:'₹2.65 Cr',extra:'Lift · stilt parking'},
- {id:2,p:'sale',loc:'Saket',title:'New 4 BHK with roof rights',bhk:4,plot:'250 sq. yd.',floor:'Third',facing:'North',price:'₹4.10 Cr',extra:'Lift · roof terrace'},
- {id:3,p:'sale',loc:'Shivalik',title:'Ground floor 3 BHK with lawn',bhk:3,plot:'180 sq. yd.',floor:'Ground',facing:'West',price:'₹2.20 Cr',extra:'Private lawn'},
- {id:4,p:'sale',loc:'Sarvodaya Enclave',title:'Corner 4 BHK builder floor',bhk:4,plot:'300 sq. yd.',floor:'First',facing:'North-East',price:'₹5.25 Cr',extra:'Corner plot · lift'},
- {id:5,p:'sale',loc:'Sheikh Sarai',title:'2 BHK DDA flat, Phase I',bhk:2,plot:'85 sq. m',floor:'First',facing:'South',price:'₹1.15 Cr',extra:'Freehold'},
- {id:6,p:'sale',loc:'Malviya Nagar',title:'Freshly built 3 BHK floor',bhk:3,plot:'150 sq. yd.',floor:'First',facing:'North',price:'₹1.95 Cr',extra:'Lift · modular kitchen'},
- {id:7,p:'rent',loc:'Malviya Nagar',title:'Furnished 2 BHK floor',bhk:2,plot:'100 sq. yd.',floor:'Second',facing:'East',price:'₹42,000',per:'/month',extra:'Semi-furnished'},
- {id:8,p:'rent',loc:'Saket',title:'3 BHK floor near Select City',bhk:3,plot:'200 sq. yd.',floor:'First',facing:'North',price:'₹78,000',per:'/month',extra:'Lift · 1 car park'},
- {id:9,p:'rent',loc:'Geetanjali Enclave',title:'4 BHK duplex with terrace',bhk:4,plot:'250 sq. yd.',floor:'Third',facing:'West',price:'₹1,25,000',per:'/month',extra:'Roof terrace'},
- {id:10,p:'rent',loc:'Hauz Khas',title:'Ground floor 3 BHK, lawn',bhk:3,plot:'300 sq. yd.',floor:'Ground',facing:'East',price:'₹1,10,000',per:'/month',extra:'Pet friendly'}
-];
-var FEATURED={title:'Park-facing 3 BHK, Malviya Nagar',p:'sale',plot:'200 sq. yd.',floor:'Third + roof',price:'₹3.10 Cr'};
-var LOCS=['Malviya Nagar','Saket','Shivalik','Sheikh Sarai','Hauz Khas','Sarvodaya Enclave','Geetanjali Enclave','Panchsheel Park','Greater Kailash','Navjeevan Vihar'];
-$('#fLoc').innerHTML='<option value="">All colonies</option>'+LOCS.map(function(l){return '<option>'+l+'</option>'}).join('');
-var PLANS={
- 2:[[0,0,55,48],[0,48,55,52],[55,0,65,62],[55,62,35,38],[90,62,30,20],[90,82,30,18],[120,0,40,30],[120,30,40,70]],
- 3:[[0,0,50,45],[0,45,50,55],[50,0,62,55],[50,55,38,45],[88,55,24,45],[112,0,48,52],[112,52,24,24],[136,52,24,24],[112,76,48,24]],
- 4:[[0,0,44,40],[0,40,44,38],[0,78,22,22],[22,78,22,22],[44,0,62,50],[44,50,40,50],[84,50,22,50],[106,0,54,36],[106,36,54,34],[106,70,26,30],[132,70,28,30]]
-};
-var NAMES={2:['Bed','Bed','Living','Kitchen','WC','WC','Balcony','Lobby'],3:['Bed','Bed','Living','Dining','Kit.','Bed','WC','WC','Lift'],4:['Bed','Bed','WC','Puja','Living','Dining','Kit.','Bed','Bed','WC','Lift']};
-function planSVG(b){
-  var s='<svg viewBox="-14 -12 188 124" preserveAspectRatio="xMidYMid meet" aria-hidden="true">';
-  PLANS[b].forEach(function(r,i){
-    var nm=NAMES[b][i], fill=nm==='Bed'?'#E1E7F1':(nm==='Living'||nm==='Dining'?'#FFFFFF':'#EEF1F6');
-    s+='<rect x="'+r[0]+'" y="'+r[1]+'" width="'+r[2]+'" height="'+r[3]+'" fill="'+fill+'"/>';
-    s+='<path class="w" pathLength="1" stroke-width=".9" d="M'+r[0]+' '+r[1]+'h'+r[2]+'v'+r[3]+'h-'+r[2]+'z"/>';
-    s+='<text x="'+(r[0]+r[2]/2)+'" y="'+(r[1]+r[3]/2+1.5)+'" text-anchor="middle" font-family="Hanken Grotesk,Arial,sans-serif" font-size="4.2" fill="#5B6880">'+nm+'</text>';
-  });
-  return s+'<path class="w" pathLength="1" stroke-width="2.6" d="M0 0h160v100h-160z"/></svg>';
-}
-var FLN={Ground:'G',First:'1',Second:'2',Third:'3'};
-var st={p:'sale',loc:'',bhk:''};
-function render(){
-  var items=LISTINGS.filter(function(x){return x.p===st.p&&(!st.loc||x.loc===st.loc)&&(!st.bhk||String(x.bhk)===st.bhk)});
-  $('#grid').innerHTML=items.length?items.map(function(x){
-    return '<article class="card"><div class="pl">'+(x.photo?'<img src="'+x.photo+'" alt="'+x.title+'" loading="lazy">':planSVG(x.bhk))+'<span class="tg'+(x.p==='rent'?' rent':'')+'">'+(x.p==='rent'?'For rent':'For sale')+'</span><span class="fl-badge" title="'+x.floor+' floor">'+FLN[x.floor]+'</span></div>'+
-    '<div class="bd"><div class="loc"><span>'+x.loc+'</span><span>'+x.facing+' facing</span></div><h3>'+x.title+'</h3>'+
-    '<dl class="specs"><div><dt>Plot</dt><dd class="num">'+x.plot+'</dd></div><div><dt>Floor</dt><dd>'+x.floor+'</dd></div><div><dt>Config</dt><dd>'+x.bhk+' BHK</dd></div></dl>'+
-    '<div class="loc"><span>'+x.extra+'</span></div><div class="ft"><span class="price num">'+x.price+(x.per?' <small>'+x.per+'</small>':'')+'</span><button class="enq" data-enquire="'+x.id+'">Enquire</button></div></div></article>';
-  }).join(''):'<div class="empty">Nothing listed with these filters right now. Call <b>+91 99113 54620</b> and ask what is coming up off-market.</div>';
-  $('#count').textContent=items.length+(items.length===1?' home':' homes');
-  if(animate){gsap.fromTo('#grid .card',{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.06,ease:'power3.out',overwrite:true})}
-}
-$$('.seg [data-p]').forEach(function(b){b.addEventListener('click',function(){st.p=b.dataset.p;$$('.seg [data-p]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});render()})});
-$('#fLoc').addEventListener('change',function(e){st.loc=e.target.value;render()});
-$('#fBhk').addEventListener('change',function(e){st.bhk=e.target.value;render()});
-
-/* ---------- enquiry → WhatsApp ---------- */
-function wa(){
-  var n=$('#eName').value.trim(),ph=$('#ePhone').value.trim(),b=$('#eBudget').value.trim(),m=$('#eMsg').value.trim();
-  var t='Hello MV Homes,\nName: '+(n||'-')+'\nPhone: '+(ph||'-')+'\nI want to: '+$('#ePurpose').value+(b?'\nBudget: '+b:'')+(m?'\n'+m:'');
-  $('#eSend').href='https://wa.me/919911354620?text='+encodeURIComponent(t);
-}
-['#eName','#ePhone','#ePurpose','#eBudget','#eMsg'].forEach(function(s){$(s).addEventListener('input',wa);$(s).addEventListener('change',wa)});
-$('#eSend').addEventListener('click',function(e){
-  var ok=$('#eName').value.trim()&&$('#ePhone').value.replace(/\D/g,'').length>=10,er=$('#eErr');
-  if(!ok){e.preventDefault();er.textContent='Add your name and a 10-digit mobile number so we can call you back.';er.hidden=false}else er.hidden=true;
-});
-document.addEventListener('click',function(e){
-  var b=e.target.closest('[data-enquire]');
-  if(b){
-    var x=b.dataset.enquire==='feat'?FEATURED:LISTINGS.filter(function(l){return String(l.id)===b.dataset.enquire})[0];
-    $('#ePurpose').value=x.p==='rent'?'Rent a property':'Buy a property';
-    $('#eMsg').value='Interested in: '+x.title+(x.loc?', '+x.loc:'')+' ('+x.plot+', '+x.floor+' floor, '+x.price+(x.per||'')+').';
-    wa();travel('G',function(){var c=$('#contact');scrollToY(c.getBoundingClientRect().top+scrollY-80,true);setTimeout(function(){$('#eName').focus({preventScroll:true})},60)});return;
-  }
-  var p=e.target.closest('[data-purpose]');
-  if(p){$('#ePurpose').value=p.dataset.purpose;wa();scrollToY($('#contact').getBoundingClientRect().top+scrollY-80,false)}
-});
-wa();
-
-/* copy */
-$$('.copy').forEach(function(b){b.addEventListener('click',function(){
-  var v=b.dataset.copy,done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)},fb=function(){var r=document.createRange();r.selectNodeContents(b.previousElementSibling);var s=getSelection();s.removeAllRanges();s.addRange(r)};
-  try{navigator.clipboard.writeText(v).then(done,fb)}catch(_){fb()}
-})});
-$('#yr').textContent=new Date().getFullYear();
-
-/* ---------- smooth scroll ---------- */
-var lenis=null;
-if(animate&&window.Lenis){try{lenis=new Lenis({lerp:.09,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}catch(_){lenis=null}}
-function scrollToY(y,immediate){
-  if(lenis)lenis.scrollTo(y,{immediate:!!immediate,force:true,duration:1.2});
-  else window.scrollTo({top:y,behavior:immediate||reduce?'auto':'smooth'});
-}
-
-/* ---------- enter sequence ---------- */
-var enterST=null;
-if(animate){
-  var mob=window.innerWidth<720;
-  var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#f3 .pin',start:'top top',end:mob?'+=220%':'+=300%',pin:true,scrub:.7,anticipatePin:1}});
-  enterST=tl.scrollTrigger;
-  var walls=$$('#featPlan .wall');
-  gsap.set(walls,{strokeDasharray:1,strokeDashoffset:1});
-  gsap.set('#featPlan .furnish, #featPlan .labels',{opacity:0});
-  gsap.set('#f3 .panel',{x:40,opacity:0});
-  tl.from('#f3 .cap',{y:30,opacity:0,duration:.08})
-    .to('#enterFacade',{scale:18,svgOrigin:'115 116',duration:.5,ease:'power2.in'},.1)
-    .to('#f3 .cap',{opacity:0,y:-30,duration:.12},.2)
-    .to('#f3 .flood',{opacity:1,duration:.1},.48)
-    .to('#f3 .flood',{backgroundColor:'#F6F7FA',duration:.08},.58)
-    .to('#f3 .home',{opacity:1,duration:.04},.64)
-    .to(walls,{strokeDashoffset:0,duration:.16,stagger:.012},.66)
-    .to('#featPlan .furnish',{opacity:1,duration:.06},.86)
-    .to('#featPlan .labels',{opacity:1,duration:.06},.88)
-    .to('#f3 .panel',{x:0,opacity:1,duration:.08},.88)
-    .to({},{duration:.06});
-
-  /* hero headline */
-  gsap.from('.roof h1 .ln > span',{yPercent:110,duration:1.1,ease:'power4.out',stagger:.09,delay:1.05});
-  gsap.from('.roof .lede, .roof .ctas, .roof .eyebrow',{y:24,opacity:0,duration:.9,ease:'power3.out',stagger:.08,delay:1.35});
-  gsap.from('#heroFacade',{y:60,duration:1.4,ease:'power3.out',delay:1});
-  /* hero building sinks as you leave the roof */
-  gsap.to('.roof .bldg',{yPercent:12,ease:'none',scrollTrigger:{trigger:'.roof',start:'top top',end:'bottom top',scrub:true}});
-
-  /* floor numerals drift */
-  $$('.fnum').forEach(function(n){gsap.fromTo(n,{yPercent:-20},{yPercent:30,ease:'none',scrollTrigger:{trigger:n.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
-  /* plates */
-  $$('.plate .rule').forEach(function(r){gsap.from(r,{scaleX:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:r,start:'top 88%'}})});
-  /* reveals */
-  $$('.rv').forEach(function(el){gsap.from(el,{y:36,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%'}})});
-  /* staircase: treads and risers draw as you walk down */
-  $$('.stair').forEach(function(s){
-    gsap.set(s,{'--tread':0,'--riser':0});
-    gsap.timeline({scrollTrigger:{trigger:s,start:'top 80%',end:'bottom 45%',scrub:.5}})
-      .from(s.children,{x:-20,opacity:0,stagger:.05,duration:.3},0)
-      .to(s,{'--tread':1,duration:.5},0)
-      .to(s,{'--riser':1,duration:.4},.5);
-  });
-}
-
-/* ---------- lift panel + header state ---------- */
-var cur='R',lastY=0,dir=0;
-function setFloor(k){
-  cur=k;$$('.lift .fl').forEach(function(b){b.classList.toggle('on',b.dataset.go===k)});
-  $('#lDigit').textContent=k;$('#tDigit').textContent=k;
-}
-function setArrow(){var a=dir>0?'▼':(dir<0?'▲':' ');$('#lArr').textContent=a;$('#tArr').textContent=a}
-var idleT;
-window.addEventListener('scroll',function(){
-  var y=scrollY;dir=y>lastY?1:(y<lastY?-1:0);lastY=y;setArrow();clearTimeout(idleT);idleT=setTimeout(function(){dir=0;setArrow()},500);
-  $('#hdr').classList.toggle('solid',isLight());
-  if(!hasGsap)manualFloor();
-},{passive:true});
-function isLight(){
-  var roof=$('#roof').getBoundingClientRect(), f3=$('#f3').getBoundingClientRect();
-  if(roof.bottom>60)return false;
-  if(animate&&enterST&&scrollY<enterST.start+(enterST.end-enterST.start)*.6)return false;
-  var fs=$('#fs').getBoundingClientRect(); if(fs.top<60)return false;
-  return true;
-}
-function manualFloor(){var mid=innerHeight/2,k='R';FLOORS.forEach(function(f){var r=document.getElementById(f.id).getBoundingClientRect();if(r.top<=mid)k=f.k});if(k!==cur)setFloor(k)}
-if(hasGsap){FLOORS.forEach(function(f){ScrollTrigger.create({trigger:'#'+f.id,start:'top 50%',end:'bottom 50%',onToggle:function(s){if(s.isActive)setFloor(f.k)}})})}
-setFloor('R');
-
-/* ---------- lift travel with doors ---------- */
-function floorY(k){
-  if(k==='3'&&enterST)return enterST.end;
-  var f=FLOORS.filter(function(x){return x.k===k})[0];var el=document.getElementById(f.id);
-  return Math.max(0,el.getBoundingClientRect().top+scrollY-(k==='R'?0:10));
-}
-var actx=null;
-function ding(){
-  try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();var t=actx.currentTime;
-    [[1318,0],[1046,.16]].forEach(function(n){var o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.value=n[0];g.gain.setValueAtTime(0,t+n[1]);g.gain.linearRampToValueAtTime(.045,t+n[1]+.01);g.gain.exponentialRampToValueAtTime(.0001,t+n[1]+.9);o.connect(g);g.connect(actx.destination);o.start(t+n[1]);o.stop(t+n[1]+1)})}catch(_){}
-}
-var busy=false;
-function travel(k,after){
-  closeDir();$('#lift').classList.remove('open');$('#liftToggle').setAttribute('aria-expanded','false');
-  if(reduce||!animate){scrollToY(floorY(k),true);setFloor(k);after&&after();return}
-  if(busy)return;busy=true;
-  var from=ORDER.indexOf(cur),to=ORDER.indexOf(k),step=to>from?1:-1,d=$('#doors');
-  $('#dArr').textContent=to===from?'•':(step>0?'▼':'▲');$('#dDigit').textContent=cur;
-  $('#dName').textContent=FLOORS[to].name;
-  d.classList.add('shut');
-  var i=from;
-  setTimeout(function(){
-    var tick=setInterval(function(){
-      if(i===to){clearInterval(tick);
-        scrollToY(floorY(k),true);setFloor(k);ScrollTrigger.update();
-        setTimeout(function(){ding();d.classList.remove('shut');busy=false;after&&after()},260);
-        return}
-      i+=step;$('#dDigit').textContent=ORDER[i];
-    },230);
-  },820);
-}
-document.addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(!g)return;e.preventDefault();travel(g.dataset.go)});
-$('#liftToggle').addEventListener('click',function(){var o=$('#lift').classList.toggle('open');this.setAttribute('aria-expanded',String(o))});
-
-/* directory */
-function openDir(){$('#dir').hidden=false;$('#dirBtn').setAttribute('aria-expanded','true');if(lenis)lenis.stop();if(animate)gsap.from('#dir li',{y:20,opacity:0,stagger:.05,duration:.5,ease:'power3.out'});$('#dirClose').focus()}
-function closeDir(){if($('#dir').hidden)return;$('#dir').hidden=true;$('#dirBtn').setAttribute('aria-expanded','false');if(lenis)lenis.start()}
-$('#dirBtn').addEventListener('click',openDir);$('#dirClose').addEventListener('click',closeDir);
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDir()});
-
-render();
-if(hasGsap)window.addEventListener('load',function(){ScrollTrigger.refresh()});
-})();
-</script>
-
+<script src="assets/data.js"></script>
+<script src="assets/main.js"></script>
 </body>
 </html>
