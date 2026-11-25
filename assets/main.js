@@ -158,13 +158,52 @@ function planSVG(b){
 var FLN={Ground:'G',First:'1',Second:'2',Third:'3'};
 function cardHTML(x){
   return '<article class="card" data-id="'+x.id+'"><div class="media"><div class="flip"><div class="face front">'+img(x.img,x.title)+'</div><div class="face back">'+planSVG(x.bhk)+'</div></div>'+
-  '<span class="tg'+(x.p==='rent'?' rent':'')+'">'+(x.p==='rent'?'For rent':'For sale')+'</span><span class="fl-badge" title="'+x.floor+' floor">'+FLN[x.floor]+'</span>'+
+  '<span class="ph-hint">View photos</span><span class="tg'+(x.p==='rent'?' rent':'')+'">'+(x.p==='rent'?'For rent':'For sale')+'</span><span class="fl-badge" title="'+x.floor+' floor">'+FLN[x.floor]+'</span>'+
   '<div class="viewtoggle" role="group" aria-label="View"><button type="button" data-v="photo" aria-pressed="true">Photo</button><button type="button" data-v="plan" aria-pressed="false">Plan</button></div></div>'+
   '<div class="bd"><div class="loc"><span>'+x.loc+'</span><span>'+(x.facing?x.facing+' facing':'Ready to move')+'</span></div><h3>'+x.title+'</h3>'+
   '<dl class="specs"><div><dt>Plot</dt><dd class="num">'+x.plot+'</dd></div><div><dt>Floor</dt><dd>'+x.floor+'</dd></div><div><dt>Config</dt><dd>'+x.bhk+' BHK</dd></div></dl>'+
   '<div class="ft"><span class="price num">'+x.price+(x.per?' <small>'+x.per+'</small>':'')+'</span><span class="acts"><a class="icon-btn wa" href="'+waURL('Hello MV Homes, I am interested in: '+x.title+', '+x.loc+' ('+x.price+(x.per||'')+').')+'" target="_blank" rel="noopener" aria-label="Ask on WhatsApp">'+ICON.wa+'</a><button class="btn" style="padding:10px 16px" data-enquire="'+x.id+'">Enquire</button></span></div></div></article>';
 }
 document.addEventListener('click',function(e){var b=e.target.closest('.viewtoggle button');if(!b)return;var c=b.closest('.card');c.classList.toggle('show-plan',b.dataset.v==='plan');$$('.viewtoggle button',c).forEach(function(x){x.setAttribute('aria-pressed',String(x===b))})});
+/* ---------- listing photo viewer: tap a card photo to open all photos of that home ---------- */
+var PLB={list:[],i:0,el:null};
+function plbShow(i){
+  if(!PLB.list.length)return;
+  PLB.i=(i+PLB.list.length)%PLB.list.length;
+  $('#lbImg').innerHTML='<img src="'+PLB.list[PLB.i][0]+'" alt="'+esc(PLB.list[PLB.i][1])+'">';
+  $('#lbCap').textContent=PLB.list[PLB.i][1]+' · '+(PLB.i+1)+' / '+PLB.list.length;
+}
+function plbOpen(list){
+  var lb=$('#lightbox');
+  if(!lb){
+    lb=document.createElement('div');lb.id='lightbox';lb.hidden=true;lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.setAttribute('aria-label','Photo viewer');
+    lb.innerHTML='<button class="pill lbx" id="lbClose" style="color:#fff">Close</button><button class="nav prev" id="lbPrev" aria-label="Previous">\u2039</button><div><div class="lbimg" id="lbImg"></div><div class="cap" id="lbCap"></div></div><button class="nav next" id="lbNext" aria-label="Next">\u203a</button>';
+    document.body.appendChild(lb);PLB.el=lb;
+    $('#lbClose').addEventListener('click',plbClose);
+    $('#lbPrev').addEventListener('click',function(){plbShow(PLB.i-1)});
+    $('#lbNext').addEventListener('click',function(){plbShow(PLB.i+1)});
+    document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='ArrowRight')plbShow(PLB.i+1);if(e.key==='ArrowLeft')plbShow(PLB.i-1);if(e.key==='Escape')plbClose()});
+  }
+  PLB.list=list;PLB.i=0;plbShow(0);
+  lb.hidden=false;if(typeof lenis!=='undefined'&&lenis)lenis.stop();
+}
+function plbClose(){var lb=$('#lightbox');if(lb&&!lb.hidden){lb.hidden=true;if(typeof lenis!=='undefined'&&lenis)lenis.start()}}
+window.closeLightbox=plbClose;
+function openListingPhotos(id){
+  var x=D.LISTINGS.filter(function(l){return String(l.id)===String(id)})[0];if(!x)return;
+  var have=window.MVPHOTOS&&window.MVPHOTOS[id];
+  if(have&&have.length){plbOpen(have);return}
+  plbOpen([[x.img,x.title+', '+x.loc+' — loading all photos\u2026']]);
+  var sc=document.createElement('script');sc.src='assets/photos-'+id+'.js';
+  sc.onload=function(){var L=window.MVPHOTOS&&window.MVPHOTOS[id];if(L&&L.length){PLB.list=L;plbShow(Math.min(PLB.i,L.length-1))}};
+  sc.onerror=function(){plbShow(0)};
+  document.head.appendChild(sc);
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.viewtoggle'))return;
+  var front=e.target.closest('.card .face.front');if(!front)return;
+  var card=e.target.closest('.card');if(card)openListingPhotos(card.getAttribute('data-id'));
+});
 
 /* ---------- shared reveals ---------- */
 function reveals(){
@@ -386,6 +425,8 @@ M.gallery=function(){
   function showLB(i){cur=(i+G.length)%G.length;$('#lbImg').innerHTML='<img src="'+G[cur][0].replace('w=1400','w=2000')+'" alt="'+esc(G[cur][1])+'">';$('#lbCap').textContent=G[cur][1]+' · '+(cur+1)+' / '+G.length;if(lb.hidden){lb.hidden=false;if(lenis)lenis.stop();if(animate)gsap.from('#lbImg',{scale:.9,opacity:0,duration:.5,ease:'power3.out'})}}
   window.closeLightbox=function(){if(!lb.hidden){lb.hidden=true;if(lenis)lenis.start()}};
   $('#masonry').addEventListener('click',function(e){var f=e.target.closest('figure');if(f)showLB(+f.dataset.i)});
+  $$('.hstrip .frame').forEach(function(f){f.style.cursor='zoom-in';f.addEventListener('click',function(){var im=f.querySelector('img'),cap=f.querySelector('figcaption');if(!im)return;$('#lbImg').innerHTML='<img src="'+im.src+'" alt="'+esc(cap?cap.textContent:'')+'">';$('#lbCap').textContent=cap?cap.textContent:'';if(lb.hidden){lb.hidden=false;if(lenis)lenis.stop()}})});
+
   $('#lbPrev').addEventListener('click',function(){showLB(cur-1)});$('#lbNext').addEventListener('click',function(){showLB(cur+1)});$('#lbClose').addEventListener('click',window.closeLightbox);
   document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='ArrowRight')showLB(cur+1);if(e.key==='ArrowLeft')showLB(cur-1)});
   if(!animate)return;
