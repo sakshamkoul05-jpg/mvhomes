@@ -160,7 +160,7 @@ function cardHTML(x){
   return '<article class="card" data-id="'+x.id+'"><div class="media"><div class="flip"><div class="face front">'+img(x.img,x.title)+'</div><div class="face back">'+planSVG(x.bhk)+'</div></div>'+
   '<span class="tg'+(x.p==='rent'?' rent':'')+'">'+(x.p==='rent'?'For rent':'For sale')+'</span><span class="fl-badge" title="'+x.floor+' floor">'+FLN[x.floor]+'</span>'+
   '<div class="viewtoggle" role="group" aria-label="View"><button type="button" data-v="photo" aria-pressed="true">Photo</button><button type="button" data-v="plan" aria-pressed="false">Plan</button></div></div>'+
-  '<div class="bd"><div class="loc"><span>'+x.loc+'</span><span>'+x.facing+' facing</span></div><h3>'+x.title+'</h3>'+
+  '<div class="bd"><div class="loc"><span>'+x.loc+'</span><span>'+(x.facing?x.facing+' facing':'Ready to move')+'</span></div><h3>'+x.title+'</h3>'+
   '<dl class="specs"><div><dt>Plot</dt><dd class="num">'+x.plot+'</dd></div><div><dt>Floor</dt><dd>'+x.floor+'</dd></div><div><dt>Config</dt><dd>'+x.bhk+' BHK</dd></div></dl>'+
   '<div class="ft"><span class="price num">'+x.price+(x.per?' <small>'+x.per+'</small>':'')+'</span><span class="acts"><a class="icon-btn wa" href="'+waURL('Hello MV Homes, I am interested in: '+x.title+', '+x.loc+' ('+x.price+(x.per||'')+').')+'" target="_blank" rel="noopener" aria-label="Ask on WhatsApp">'+ICON.wa+'</a><button class="btn" style="padding:10px 16px" data-enquire="'+x.id+'">Enquire</button></span></div></div></article>';
 }
@@ -380,7 +380,7 @@ M.process=function(){
 };
 
 M.gallery=function(){
-  var G=[[D.IMG.liv1,'Living room, Malviya Nagar'],[D.IMG.kit2,'Modular kitchen'],[D.IMG.bed1,'Master bedroom'],[D.IMG.extDusk,'Builder floor at dusk'],[D.IMG.liv5,'Drawing room'],[D.IMG.balcony,'Balcony'],[D.IMG.bed3,'Bedroom'],[D.IMG.kit4,'Kitchen with island'],[D.IMG.liv4,'Lounge'],[D.IMG.extWhite,'Contemporary facade'],[D.IMG.bed4,'Guest bedroom'],[D.IMG.liv6,'Living and dining'],[D.IMG.kit1,'Open kitchen'],[D.IMG.extBalc,'Balconies'],[D.IMG.rail,'Glass railings']];
+  var G=(window.MVGALLERY&&window.MVGALLERY.length)?window.MVGALLERY:[[D.IMG.prop3,'Brand-new 4 BHK, Saket'],[D.IMG.prop1,'Luxury 3 BHK, Shivalik'],[D.IMG.prop2,'Luxury 3 BHK, Shivalik']];
   $('#masonry').innerHTML=G.map(function(x,i){return '<figure data-i="'+i+'">'+img(x[0],x[1])+'<figcaption>'+x[1]+'</figcaption></figure>'}).join('');
   var lb=$('#lightbox'),cur=0;
   function showLB(i){cur=(i+G.length)%G.length;$('#lbImg').innerHTML='<img src="'+G[cur][0].replace('w=1400','w=2000')+'" alt="'+esc(G[cur][1])+'">';$('#lbCap').textContent=G[cur][1]+' · '+(cur+1)+' / '+G.length;if(lb.hidden){lb.hidden=false;if(lenis)lenis.stop();if(animate)gsap.from('#lbImg',{scale:.9,opacity:0,duration:.5,ease:'power3.out'})}}
